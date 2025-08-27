@@ -970,10 +970,18 @@
                             </div>
                         </div> <div class="col-2-5">
                         <div class="checkbox-container">
-                            <label>BVG</label> <!-- ID 85 -->
+                            <xsl:if test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_BVG']">
+                                <label>BVG</label> <!-- ID 85  -->
+                            </xsl:if>
+                            <xsl:if test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_SER']">
+                                <label>SER</label> <!-- ab v1.3 ID 85 ehemals BVG -->
+                            </xsl:if>
                             <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
                             <xsl:choose>
                                 <xsl:when test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_BVG']/fhir:valueBoolean/@value = 'true'">
+                                    <xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text> <!-- Ja -->
+                                </xsl:when>
+                                <xsl:when test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_SER']/fhir:valueBoolean/@value = 'true'">
                                     <xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text> <!-- Ja -->
                                 </xsl:when>
                                 <xsl:otherwise>
