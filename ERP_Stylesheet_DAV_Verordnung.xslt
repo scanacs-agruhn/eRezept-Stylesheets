@@ -1330,9 +1330,10 @@
                         <div class="col-12">
                             <div class="input-container">
                                 <label>Einrichtung</label> <!-- Name der Einrichtung (ID 62) -->
-                                <div class="text-input">
+
+                                <textarea type="text" class="text-input height-15mm" rows="auto" readonly="">
                                     <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:name/@value"/>
-                                </div>
+                                </textarea>
                             </div>
                         </div>
                     </div>
