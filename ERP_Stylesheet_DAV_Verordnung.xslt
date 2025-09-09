@@ -940,7 +940,6 @@
                             <div class="input-container">
                                 <label>Name u. Vorname d. Versicherten</label> <!-- TODO: Titel 22, Vorname 20, Name 21 ?!? -->
                                 <textarea type="text" class="text-input height-15mm" rows="auto" readonly="">
-                                    <!--xsl:text disable-output-escaping='yes'>&lt;textarea id=&#34;txt-area&#34; type=&#34;text&#34; class=&#34;text-input height-15mm border-dotted-t-l&#34; readonly/&gt;</xsl:text-->
                                     <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:name/fhir:prefix/@value">
                                         <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:name/fhir:prefix/@value"/>
                                         <xsl:text> </xsl:text>
@@ -950,7 +949,6 @@
                                         <xsl:text> </xsl:text>
                                     </xsl:if>
                                     <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:name/fhir:family/@value"/>
-                                    <!--xsl:text disable-output-escaping='yes'>&lt;/textarea&gt;</xsl:text-->
                                 </textarea>
                             </div>
                         </div>
@@ -975,14 +973,12 @@
                                     <label>Postfachanschrift</label>
                                 </xsl:if>
                                 <textarea type="text" class="text-input height-15mm" rows="auto" readonly="">
-                                    <!--xsl:text disable-output-escaping='yes'>&lt;textarea id=&#34;txt-area&#34; type=&#34;text&#34; class=&#34;text-input height-15mm&#34; readonly/&gt;</xsl:text-->
                                     <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']">
                                         <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:line/@value"/>
                                     </xsl:if>
                                     <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
                                         <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:line/@value"/>
                                     </xsl:if>
-                                    <!--xsl:text disable-output-escaping='yes'>&lt;/textarea&gt;</xsl:text-->
                                 </textarea>
                             </div>
                         </div>
@@ -2521,6 +2517,16 @@
         <script src="js/bootstrap.bundle.min.js"></script>
         <script src="js/popper.min.js"></script>
         <script src="js/jquery-3.5.1.slim.min.js"></script>
+
+        <!-- Anpassung ger Hintergrundfarbe bei PKV oder SEL Kostenträgertyp -->
+        <xsl:if test="(//fhir:entry/fhir:resource/fhir:Coverage/fhir:type/fhir:coding/fhir:code/@value='PKV') or (//fhir:entry/fhir:resource/fhir:Coverage/fhir:type/fhir:coding/fhir:code/@value='SEL')">
+            <script>
+                window.onload = () => {
+                document.documentElement.style.setProperty('--background-color-ges', '#c6dffd');
+                document.documentElement.style.setProperty('--border-background-color-ges', '#d8c5ff');
+                };
+            </script>
+        </xsl:if>
     </xsl:template>
 
     <!-- weitere Hilfs-Templates -->
