@@ -2392,18 +2392,16 @@
                                                 </div>
                                             </div>
                                         </xsl:if>
-                                        <xsl:choose>
-                                            <xsl:when test="//fhir:Medication/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_Packaging']/fhir:valueString/@value">
-                                                <div class="col-3">
-                                                    <div class="input-container">
-                                                        <label>Darreichungsform</label> <!-- ID 132  => 30 Zeichen-->
-                                                        <textarea type="text" class="text-input" rows="auto" readonly="">
-                                                            <xsl:value-of select="fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_Ingredient_Form']/fhir:valueString/@value"/>
-                                                        </textarea>
-                                                    </div>
+                                        <xsl:if test="fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_Packaging']">
+                                            <div class="col-3">
+                                                <div class="input-container">
+                                                    <label>Darreichungsform</label> <!-- ID 132  => 30 Zeichen-->
+                                                    <textarea type="text" class="text-input" rows="auto" readonly="">
+                                                        <xsl:value-of select="fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_Ingredient_Form']/fhir:valueString/@value"/>
+                                                    </textarea>
                                                 </div>
-                                            </xsl:when>
-                                        </xsl:choose>
+                                            </div>
+                                        </xsl:if>
                                     </div>
                                     <div class="row g-1"> <!-- TODO activate function "justify-content-end" -->
                                         <div class="col-1">
