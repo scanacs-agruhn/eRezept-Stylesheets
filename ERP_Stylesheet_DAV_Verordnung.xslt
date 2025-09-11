@@ -1003,19 +1003,21 @@
                                 </textarea>
                             </div>
                         </div>
-                        <div class="col-2">
-                            <div class="input-container">
-                                <label>Land</label> <!-- Wohnsitzlaendercode (ID 28/35) -->
-                                <div class="text-input">
-                                    <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']">
-                                        <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:country/@value"/>
-                                    </xsl:if>
-                                    <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
-                                        <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:country/@value"/>
-                                    </xsl:if>
+                        <xsl:if test="(fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:country) or (fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:country)">
+                            <div class="col-2">
+                                <div class="input-container">
+                                    <label>Land</label> <!-- Wohnsitzlaendercode (ID 28/35) -->
+                                    <div class="text-input">
+                                        <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']">
+                                            <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:country/@value"/>
+                                        </xsl:if>
+                                        <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
+                                            <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:country/@value"/>
+                                        </xsl:if>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </xsl:if>
                     </div>
                     <div class="row g-1">
                         <div class="col-3">
@@ -1260,26 +1262,26 @@
                         <div class="col-6"> <!-- Arztnummer / LANR (ID 42a/52a) oder Zahnarztnummer / ZANR (ID 42b/52b)-->
                             <div class="input-container">
                                 <xsl:choose>
-                                    <xsl:when test="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='https://fhir.kbv.de/NamingSystem/KBV_NS_Base_ANR']/fhir:value/@value">
+                                    <xsl:when test="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='https://fhir.kbv.de/NamingSystem/KBV_NS_Base_ANR']">
                                         <label>LANR</label>
                                         <div class="text-input">
                                             <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='https://fhir.kbv.de/NamingSystem/KBV_NS_Base_ANR']/fhir:value/@value"/>
                                         </div>
                                     </xsl:when>
-                                    <xsl:when test="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='http://fhir.de/sid/kzbv/zahnarztnummer']/fhir:value/@value">
+                                    <xsl:when test="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='http://fhir.de/sid/kzbv/zahnarztnummer']">
                                         <label>ZANR</label>
                                         <div class="text-input">
                                             <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='http://fhir.de/sid/kzbv/zahnarztnummer']/fhir:value/@value"/>
                                         </div>
                                     </xsl:when>
-                                    <xsl:when test="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='https://gematik.de/fhir/sid/telematik-id']/fhir:value/@value"> <!-- TODO: und Angabe ?!? -->
+                                    <xsl:when test="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='https://gematik.de/fhir/sid/telematik-id']"> <!-- TODO: und Angabe ?!? -->
                                         <label>Telematik-ID</label> <!-- (ID 42c/52c) -->
                                         <div class="text-input">
                                             <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='https://gematik.de/fhir/sid/telematik-id']/fhir:value/@value"/>
                                         </div>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <xsl:if test="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:qualification/fhir:code/fhir:coding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_FOR_Qualification_Type']/fhir:code/@value=4">
+                                        <xsl:if test="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:qualification/fhir:code/fhir:coding[fhir:system/@value='https://fhir.kbv.de/NamingSystem/KBV_NS_FOR_Fachgruppennummer_ASV']">
                                             <!-- TODO: xsl:if test="(//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:qualification/fhir:code/fhir:coding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_FOR_Qualification_Type']/fhir:code/@value=4) and (//fhir:Composition/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_Legal_basis']/fhir:valueCoding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_KBV_STATUSKENNZEICHEN']/fhir:code/@value in ('01','11')"/
                                             <xsl:if test="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:qualification/fhir:code/fhir:coding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_FOR_Qualification_Type']/fhir:code/@value=4) and (//fhir:Composition/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_Legal_basis']/fhir:valueCoding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_KBV_STATUSKENNZEICHEN']/fhir:code/@value in ('01','11')"/>
                                             -->
@@ -1363,14 +1365,16 @@
                                 </textarea>
                             </div>
                         </div>
-                        <div class="col-2">
-                            <div class="input-container">
-                                <label>Land</label> <!-- Wohnsitzländercode (ID 63) -->
-                                <div class="text-input">
-                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:country/@value"/>
+                        <xsl:if test="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:country">
+                            <div class="col-2">
+                                <div class="input-container">
+                                    <label>Land</label> <!-- Wohnsitzländercode (ID 63) -->
+                                    <div class="text-input">
+                                        <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:country/@value"/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </xsl:if>
                     </div>
                     <div class="row g-1">
                         <div class="col-3">
@@ -1399,15 +1403,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
-                            <div class="input-container">
-                                <label>Fax</label> <!-- Fax (ID 70) -->
-                                <div class="text-input">
-                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:telecom[fhir:system/@value='fax']/fhir:value/@value"/>
-                                    <xsl:text disable-output-escaping='yes'> </xsl:text>
+                        <xsl:if test="fhir:entry/fhir:resource/fhir:Organization/fhir:telecom[fhir:system/@value='fax']">
+                            <div class="col-6">
+                                <div class="input-container">
+                                    <label>Fax</label> <!-- Fax (ID 70) -->
+                                    <div class="text-input">
+                                        <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:telecom[fhir:system/@value='fax']/fhir:value/@value"/>
+                                        <xsl:text disable-output-escaping='yes'> </xsl:text>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </xsl:if>
                     </div>
                     <div class="row g-1">
                         <div class="col-12">
