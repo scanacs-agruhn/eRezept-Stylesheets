@@ -481,115 +481,116 @@
                     }
 
                     h5{
-                    margin-top: 2mm;
-                    color:var(--text-color-ges);
-                    font-size: x-small;
-                    font-weight: bold;
-                    padding-bottom: 0px;
-                    margin-bottom: 0px;
+                        margin-top: 2mm;
+                        color:var(--text-color-ges);
+                        font-size: x-small;
+                        font-weight: bold;
+                        padding-bottom: 0px;
+                        margin-bottom: 0px;
                     }
 
                     input{
-                    border: 1px solid c3c3c3;
-                    outline: none;
+                        border: 1px solid c3c3c3;
+                        outline: none;
                     }
 
                     input:hover{
-                    border: 1px solid c3c3c3;
-                    outline: none;
+                        border: 1px solid c3c3c3;
+                        outline: none;
                     }
 
                     input:focus{
-                    border: 1px solid c3c3c3;
-                    outline: none;
+                        border: 1px solid c3c3c3;
+                        outline: none;
                     }
 
                     input:hover{
-                    outline: none;
+                        outline: none;
                     }
 
                     .input-container {
-                    position: relative;
-                    display: inline-block;
-                    width: 100%;
+                        position: relative;
+                        display: inline-block;
+                        width: 100%;
                     }
 
                     .input-container label {
-                    position: absolute;
-                    top: -0px;
-                    left: 0px;
-                    padding: 0 5px;
-                    font-size: 10px;
-                    color: var(--text-color-ges);
+                        position: absolute;
+                        top: -0px;
+                        left: 0px;
+                        padding: 0 5px;
+                        font-size: 10px;
+                        color: var(--text-color-ges);
                     }
 
                     .text-input{
-                    font-family: Consolas, sans-serif;
-                    height: 10mm;
-                    width: 100%;
-                    text-align: left;
-                    border: 1px solid var(--text-color-ges);
-                    box-shadow: none;
-                    appearance: none;
-                    outline: none;
-                    background-color: var(--background-color-ges);
-                    padding-top: 14px;
-                    padding-left: 10px;
-                    color: var(--text-color-inputs);
+                        font-family: Consolas, sans-serif;
+                        height: 10mm;
+                        width: 100%;
+                        text-align: left;
+                        border: 1px solid var(--text-color-ges);
+                        box-shadow: none;
+                        appearance: none;
+                        outline: none;
+                        background-color: var(--background-color-ges);
+                        padding-top: 14px;
+                        padding-left: 10px;
+                        color: var(--text-color-inputs);
                     }
 
                     .text-input div{
-                    margin-left: 10px;
+                        margin-left: 10px;
                     }
 
                     .intern-container{
-                    background-color: var(--background-color-int);
-                    padding:2mm;
+                        background-color: var(--background-color-int);
+                        padding:2mm;
                     }
                     .row{
-                    padding-top: 0px;
-                    padding-bottom: 3px;
+                        padding-top: 0px;
+                        padding-bottom: 3px;
                     }
                     #txt-area{
-                    overflow: hidden;
-                    resize: none;
-                    line-height: 0.8;
-                    padding-top: 15px;
+                        overflow: hidden;
+                        resize: none;
+                        line-height: 0.8;
+                        padding-top: 15px;
                     }
                     .container{
-                    width: 297mm;
-                    max-width: 297mm;
-                    min-width: 297mm;
+                        width: 297mm;
+                        max-width: 297mm;
+                        min-width: 297mm;
                     }
+
                     hr{
-                    margin-top: 1mm;
-                    margin-bottom: 1mm;
-                    background-color: var(--text-color-ges);
+                        margin-top: 1mm;
+                        margin-bottom: 1mm;
+                        background-color: var(--text-color-ges);
                     }
                     .container, .container-fluid {
-                    width: 100% !important;
-                    max-width: none !important;
+                        width: 100% !important;
+                        max-width: none !important;
                     }
 
                     .col, .col-*, .row {
-                    flex: none !important;
-                    width: auto !important;
+                        flex: none !important;
+                        width: auto !important;
                     }
 
                     .checkbox-container {
-                    display: flex;
-                    align-items: center;
-                    flex-direction: row-reverse; /* Position checkbox to the left and label to the right */
-                    margin-left: 0px;
-                    font-size: 10px;
-                    color: var(--text-color-ges);
+                        display: flex;
+                        align-items: center;
+                        flex-direction: row-reverse; /* Position checkbox to the left and label to the right */
+                        margin-left: 0px;
+                        font-size: 10px;
+                        color: var(--text-color-ges);
                     }
 
                     .checkbox-container > label {
-                    margin-left: 4px; /* Adjust spacing between checkbox and label */
-                    margin-right: 0; /* Remove right margin to ensure consistency */
-                    font-size: 8px;
-                    width:100%;
+                        margin-left: 4px; /* Adjust spacing between checkbox and label */
+                        margin-right: 0; /* Remove right margin to ensure consistency */
+                        font-size: 8px;
+                        width:100%;
                     }
 
                     /* Hide the default checkbox */
@@ -850,14 +851,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-2">
-                            <div class="input-container">
-                                <label>WOP</label> <!-- Kennzeichen Wohnortprinzip ID  12 --> <!-- TODO: Ausgabe CodeSystem? -->
-                                <div class="text-input">
-                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Coverage/fhir:extension[@url='http://fhir.de/StructureDefinition/gkv/wop']/fhir:valueCoding/fhir:code/@value"/>
+                        <xsl:if test="fhir:entry/fhir:resource/fhir:Coverage/fhir:extension[@url='http://fhir.de/StructureDefinition/gkv/wop']">
+                            <div class="col-2">
+                                <div class="input-container">
+                                    <label>WOP</label> <!-- Kennzeichen Wohnortprinzip ID  12 --> <!-- TODO: Ausgabe CodeSystem? -->
+                                    <div class="text-input">
+                                        <xsl:value-of select="fhir:entry/fhir:resource/fhir:Coverage/fhir:extension[@url='http://fhir.de/StructureDefinition/gkv/wop']/fhir:valueCoding/fhir:code/@value"/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </xsl:if>
                     </div>
                     <xsl:if test="fhir:entry/fhir:resource/fhir:Composition/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_Legal_basis']/fhir:valueCoding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_KBV_STATUSKENNZEICHEN']/fhir:code/@value">
                         <div class="row g-1">
@@ -1000,6 +1003,7 @@
                                     <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
                                         <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:line/@value"/>
                                     </xsl:if>
+                                    <xsl:text> </xsl:text>
                                 </textarea>
                             </div>
                         </div>
@@ -1043,6 +1047,7 @@
                                     <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
                                         <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:city/@value"/>
                                     </xsl:if>
+                                    <xsl:text> </xsl:text>
                                 </div>
                             </div>
                         </div>
@@ -1350,6 +1355,7 @@
                                 <label>Einrichtung</label> <!-- Name der Einrichtung (ID 62) -->
                                 <textarea type="text" class="text-input" rows="auto" readonly="">
                                     <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:name/@value"/>
+                                    <xsl:text> </xsl:text>
                                 </textarea>
                             </div>
                         </div>
@@ -1362,6 +1368,7 @@
                                     <!--xsl:text disable-output-escaping='yes'>&lt;textarea id=&#34;txt-area&#34; type=&#34;text&#34; class=&#34;text-input height-15mm&#34; readonly/&gt;</xsl:text-->
                                     <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:line/@value"/>
                                     <!--xsl:text disable-output-escaping='yes'>&lt;/textarea&gt;</xsl:text-->
+                                    <xsl:text> </xsl:text>
                                 </textarea>
                             </div>
                         </div>
@@ -1381,7 +1388,14 @@
                             <div class="input-container">
                                 <label>PLZ</label> <!-- Postleitzahl (ID 64) -->
                                 <div class="text-input">
-                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:postalCode/@value"/>
+                                    <xsl:choose>
+                                        <xsl:when test="//fhir:entry/fhir:resource/fhir:Organization/fhir:identifier[fhir:system/@value='https://gematik.de/fhir/sid/telematik-id']/fhir:value/@value">
+                                            <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:postalCode/@value"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:text> </xsl:text>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
                                 </div>
                             </div>
                         </div>
@@ -1660,10 +1674,10 @@
 
                                             <xsl:choose>
                                                 <xsl:when test="$kategorie=00">
-                                                    <xsl:text disable-output-escaping='yes'>&lt;textarea id=&#34;txt-area&#34; type=&#34;text&#34; class=&#34;text-input&#34; readonly/&gt;</xsl:text>
+                                                    <xsl:text disable-output-escaping='yes'>&lt;textarea id=&#34;txt-area&#34; type=&#34;text&#34; class=&#34;text-input&#34; rows=&#34;auto&#34; readonly/&gt;</xsl:text>
                                                 </xsl:when>
                                                 <xsl:otherwise>
-                                                    <xsl:text disable-output-escaping='yes'>&lt;textarea id=&#34;txt-area&#34; type=&#34;text&#34; class=&#34;text-input&#34; style=&#34;font-weight: bold&#34; readonly/&gt;</xsl:text>
+                                                    <xsl:text disable-output-escaping='yes'>&lt;textarea id=&#34;txt-area&#34; type=&#34;text&#34; class=&#34;text-input&#34; rows=&#34;auto&#34; style=&#34;font-weight: bold&#34; readonly/&gt;</xsl:text>
                                                 </xsl:otherwise>
                                             </xsl:choose>
                                             <xsl:choose>
@@ -2506,7 +2520,6 @@
                                             <div class="text-input">
                                                 <xsl:text disable-output-escaping='yes'>keine Dosierung angegeben</xsl:text>
                                             </div>
-                                            <br/>
                                         </xsl:otherwise>
                                     </xsl:choose>
                                 </div>
