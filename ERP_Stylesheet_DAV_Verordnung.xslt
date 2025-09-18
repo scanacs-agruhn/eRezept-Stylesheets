@@ -158,61 +158,73 @@
                         }
 
                         body {
-                        margin: 0;
-                        font-family: var(--bs-body-font-family);
-                        font-size: var(--bs-body-font-size);
-                        font-weight: var(--bs-body-font-weight);
-                        line-height: var(--bs-body-line-height);
-                        color: var(--bs-body-color);
-                        text-align: var(--bs-body-text-align);
-                        background-color: var(--bs-body-bg);
-                        -webkit-text-size-adjust: 100%;
-                        -webkit-tap-highlight-color: transparent
+                            margin: 0;
+                            font-family: var(--bs-body-font-family);
+                            font-size: var(--bs-body-font-size);
+                            font-weight: var(--bs-body-font-weight);
+                            line-height: var(--bs-body-line-height);
+                            color: var(--bs-body-color);
+                            text-align: var(--bs-body-text-align);
+                            background-color: var(--bs-body-bg);
+                            -webkit-text-size-adjust: 100%;
+                            -webkit-tap-highlight-color: transparent
                         }
 
                         hr {
-                        margin: 1rem 0;
-                        color: inherit;
-                        border: 0;
-                        border-top: var(--bs-border-width) solid;
-                        opacity: .25
+                            margin: 1rem 0;
+                            color: inherit;
+                            border: 0;
+                            border-top: var(--bs-border-width) solid;
+                            opacity: .25
                         }
 
                         .h1,
                         .h4,
+                        .h5,
                         h1,
-                        h4 {
-                        margin-top: 0;
-                        margin-bottom: .5rem;
-                        font-weight: 500;
-                        line-height: 1.2;
-                        color: var(--bs-heading-color)
+                        h4,
+                        h5 {
+                            margin-top: 0;
+                            margin-bottom: .5rem;
+                            font-weight: 500;
+                            line-height: 1.2;
+                            color: var(--bs-heading-color)
                         }
 
                         .h1,
                         h1 {
-                        font-size: calc(1.375rem + 1.5vw)
+                            font-size: calc(1.375rem + 1.5vw)
                         }
 
                         @media (min-width:1200px) {
-
-                        .h1,
-                        h1 {
-                        font-size: 2.5rem
-                        }
+                            .h1,
+                            h1 {
+                               font-size: 2.5rem
+                            }
                         }
 
                         .h4,
                         h4 {
-                        font-size: calc(1.275rem + .3vw)
+                            font-size: calc(1.275rem + .3vw)
                         }
 
                         @media (min-width:1200px) {
-
-                        .h4,
-                        h4 {
-                        font-size: 1.5rem
+                            .h4,
+                            h4 {
+                                font-size: 1.5rem
+                            }
                         }
+
+                        .h5,
+                        h5 {
+                            font-size: calc(1.000rem + .1.5vw);
+                        }
+
+                        @media (min-width:1200px) {
+                            .h5,
+                            h5 {
+                                font-size: 1.5rem
+                            }
                         }
 
                         label {
@@ -221,10 +233,10 @@
 
                         input,
                         textarea {
-                        margin: 0;
-                        font-family: inherit;
-                        font-size: inherit;
-                        line-height: inherit
+                            margin: 0;
+                            font-family: inherit;
+                            font-size: inherit;
+                            line-height: inherit
                         }
 
                         ::-moz-focus-inner {
@@ -233,7 +245,7 @@
                         }
 
                         textarea {
-                        resize: vertical
+                            resize: vertical
                         }
 
                         ::-webkit-datetime-edit-day-field,
@@ -468,107 +480,117 @@
                     margin-bottom: 0px;
                     }
 
+                    h5{
+                        margin-top: 2mm;
+                        color:var(--text-color-ges);
+                        font-size: x-small;
+                        font-weight: bold;
+                        padding-bottom: 0px;
+                        margin-bottom: 0px;
+                    }
+
                     input{
-                    border: 1px solid c3c3c3;
-                    outline: none;
+                        border: 1px solid c3c3c3;
+                        outline: none;
                     }
 
                     input:hover{
-                    border: 1px solid c3c3c3;
-                    outline: none;
+                        border: 1px solid c3c3c3;
+                        outline: none;
                     }
 
                     input:focus{
-                    border: 1px solid c3c3c3;
-                    outline: none;
+                        border: 1px solid c3c3c3;
+                        outline: none;
                     }
 
                     input:hover{
-                    outline: none;
+                        outline: none;
                     }
 
                     .input-container {
-                    position: relative;
-                    display: inline-block;
-                    width: 100%;
+                        position: relative;
+                        display: inline-block;
+                        width: 100%;
                     }
 
                     .input-container label {
-                    position: absolute;
-                    top: -0px;
-                    left: 0px;
-                    padding: 0 5px;
-                    font-size: 10px;
-                    color: var(--text-color-ges);
+                        position: absolute;
+                        top: -0px;
+                        left: 0px;
+                        padding: 0 5px;
+                        font-size: 10px;
+                        color: var(--text-color-ges);
                     }
 
                     .text-input{
-                    font-family: Consolas, sans-serif;
-                    height: 10mm;
-                    width: 100%;
-                    text-align: left;
-                    border: 1px solid var(--text-color-ges);
-                    box-shadow: none;
-                    appearance: none;
-                    outline: none;
-                    background-color: var(--background-color-ges);
-                    padding-top: 14px;
-                    padding-left: 10px;
-                    color: var(--text-color-inputs);
+                        font-family: Consolas, sans-serif;
+                        height: 10mm;
+                        width: 100%;
+                        text-align: left;
+                        border: 1px solid var(--text-color-ges);
+                        box-shadow: none;
+                        appearance: none;
+                        outline: none;
+                        background-color: var(--background-color-ges);
+                        padding-top: 14px;
+                        padding-left: 10px;
+                        color: var(--text-color-inputs);
                     }
 
                     .text-input div{
-                    margin-left: 10px;
+                        margin-left: 10px;
                     }
 
                     .intern-container{
-                    background-color: var(--background-color-int);
-                    padding:2mm;
+                        background-color: var(--background-color-int);
+                        padding:2mm;
                     }
                     .row{
-                    padding-top: 0px;
-                    padding-bottom: 3px;
+                        padding-top: 0px;
+                        padding-bottom: 3px;
                     }
                     #txt-area{
-                    overflow: hidden;
-                    resize: none;
-                    line-height: 0.8;
-                    padding-top: 15px;
+                        overflow: hidden;
+                        resize: none;
+                        line-height: 0.8;
+                        padding-top: 15px;
                     }
                     .container{
-                    width: 297mm;
-                    max-width: 297mm;
-                    min-width: 297mm;
+                        width: 297mm;
+                        max-width: 297mm;
+                        min-width: 297mm;
                     }
+
                     hr{
-                    margin-top: 1mm;
-                    margin-bottom: 1mm;
-                    background-color: var(--text-color-ges);
+                        margin-top: 1mm;
+                        margin-bottom: 1mm;
+                        background-color: var(--text-color-ges);
                     }
                     .container, .container-fluid {
-                    width: 100% !important;
-                    max-width: none !important;
+                        width: 100% !important;
+                        max-width: none !important;
                     }
 
                     .col, .col-*, .row {
-                    flex: none !important;
-                    width: auto !important;
+                        flex: none !important;
+                        width: auto !important;
                     }
 
                     .checkbox-container {
-                    display: flex;
-                    align-items: center;
-                    flex-direction: row-reverse; /* Position checkbox to the left and label to the right */
-                    margin-left: 0px;
-                    font-size: 10px;
-                    color: var(--text-color-ges);
+                        display: flex;
+                        align-items: center;
+                        flex-direction: row-reverse; /* Position checkbox to the left and label to the right */
+                        margin-left: 0px;
+                        font-size: 10px;
+                        color: var(--text-color-ges);
                     }
 
                     .checkbox-container > label {
-                    margin-left: 4px; /* Adjust spacing between checkbox and label */
-                    margin-right: 0; /* Remove right margin to ensure consistency */
-                    font-size: 8px;
-                    width:100%;
+                        margin-left: 4px; /* Adjust spacing between checkbox and label */
+                        margin-right: 0; /* Remove right margin to ensure consistency */
+                        font-size: 8px;
+                        width:100%;
                     }
 
                     /* Hide the default checkbox */
@@ -829,14 +851,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-2">
-                            <div class="input-container">
-                                <label>WOP</label> <!-- Kennzeichen Wohnortprinzip ID  12 --> <!-- TODO: Ausgabe CodeSystem? -->
-                                <div class="text-input">
-                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Coverage/fhir:extension[@url='http://fhir.de/StructureDefinition/gkv/wop']/fhir:valueCoding/fhir:code/@value"/>
+                        <xsl:if test="fhir:entry/fhir:resource/fhir:Coverage/fhir:extension[@url='http://fhir.de/StructureDefinition/gkv/wop']">
+                            <div class="col-2">
+                                <div class="input-container">
+                                    <label>WOP</label> <!-- Kennzeichen Wohnortprinzip ID  12 --> <!-- TODO: Ausgabe CodeSystem? -->
+                                    <div class="text-input">
+                                        <xsl:value-of select="fhir:entry/fhir:resource/fhir:Coverage/fhir:extension[@url='http://fhir.de/StructureDefinition/gkv/wop']/fhir:valueCoding/fhir:code/@value"/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </xsl:if>
                     </div>
                     <xsl:if test="fhir:entry/fhir:resource/fhir:Composition/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_Legal_basis']/fhir:valueCoding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_KBV_STATUSKENNZEICHEN']/fhir:code/@value">
                         <div class="row g-1">
@@ -940,7 +964,6 @@
                             <div class="input-container">
                                 <label>Name u. Vorname d. Versicherten</label> <!-- TODO: Titel 22, Vorname 20, Name 21 ?!? -->
                                 <textarea type="text" class="text-input height-15mm" rows="auto" readonly="">
-                                    <!--xsl:text disable-output-escaping='yes'>&lt;textarea id=&#34;txt-area&#34; type=&#34;text&#34; class=&#34;text-input height-15mm border-dotted-t-l&#34; readonly/&gt;</xsl:text-->
                                     <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:name/fhir:prefix/@value">
                                         <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:name/fhir:prefix/@value"/>
                                         <xsl:text> </xsl:text>
@@ -950,7 +973,6 @@
                                         <xsl:text> </xsl:text>
                                     </xsl:if>
                                     <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:name/fhir:family/@value"/>
-                                    <!--xsl:text disable-output-escaping='yes'>&lt;/textarea&gt;</xsl:text-->
                                 </textarea>
                             </div>
                         </div>
@@ -975,30 +997,31 @@
                                     <label>Postfachanschrift</label>
                                 </xsl:if>
                                 <textarea type="text" class="text-input height-15mm" rows="auto" readonly="">
-                                    <!--xsl:text disable-output-escaping='yes'>&lt;textarea id=&#34;txt-area&#34; type=&#34;text&#34; class=&#34;text-input height-15mm&#34; readonly/&gt;</xsl:text-->
                                     <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']">
                                         <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:line/@value"/>
                                     </xsl:if>
                                     <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
                                         <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:line/@value"/>
                                     </xsl:if>
-                                    <!--xsl:text disable-output-escaping='yes'>&lt;/textarea&gt;</xsl:text-->
+                                    <xsl:text> </xsl:text>
                                 </textarea>
                             </div>
                         </div>
-                        <div class="col-2">
-                            <div class="input-container">
-                                <label>Land</label> <!-- Wohnsitzlaendercode (ID 28/35) -->
-                                <div class="text-input">
-                                    <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']">
-                                        <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:country/@value"/>
-                                    </xsl:if>
-                                    <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
-                                        <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:country/@value"/>
-                                    </xsl:if>
+                        <xsl:if test="(fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:country) or (fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:country)">
+                            <div class="col-2">
+                                <div class="input-container">
+                                    <label>Land</label> <!-- Wohnsitzlaendercode (ID 28/35) -->
+                                    <div class="text-input">
+                                        <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']">
+                                            <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:country/@value"/>
+                                        </xsl:if>
+                                        <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
+                                            <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:country/@value"/>
+                                        </xsl:if>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </xsl:if>
                     </div>
                     <div class="row g-1">
                         <div class="col-3">
@@ -1024,6 +1047,7 @@
                                     <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
                                         <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:city/@value"/>
                                     </xsl:if>
+                                    <xsl:text> </xsl:text>
                                 </div>
                             </div>
                         </div>
@@ -1199,8 +1223,7 @@
                         <div class="col-12">
                             <div class="input-container">
                                 <label>Name u. Vorname</label> <!-- Titel (ID 22/55), Name (ID 141/142), Vorname (ID 44/53) -->
-                                <!-- TODO: Teiltexttrennung -->
-                                <div class="text-input">
+                                <textarea type="text" class="text-input height-15mm" rows="auto" readonly="">
                                     <xsl:if test="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:name/fhir:prefix/@value">
                                         <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:name/fhir:prefix/@value"/>
                                         <xsl:text disable-output-escaping='yes'> </xsl:text>
@@ -1208,7 +1231,7 @@
                                     <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:name/fhir:given/@value"/>
                                     <xsl:text disable-output-escaping='yes'> </xsl:text>
                                     <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:name/fhir:family/@value"/>
-                                </div>
+                                </textarea>
                             </div>
                         </div>
                     </div>
@@ -1216,9 +1239,9 @@
                         <div class="col-12">
                             <div class="input-container">
                                 <label>Berufsbezeichnung</label> <!-- (ID 49/58) -->
-                                <div class="text-input">
+                                <textarea type="text" class="text-input" rows="auto" readonly="">
                                     <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:qualification/fhir:code/fhir:text/@value"/>
-                                </div>
+                                </textarea>
                             </div>
                         </div>
                     </div>
@@ -1244,26 +1267,26 @@
                         <div class="col-6"> <!-- Arztnummer / LANR (ID 42a/52a) oder Zahnarztnummer / ZANR (ID 42b/52b)-->
                             <div class="input-container">
                                 <xsl:choose>
-                                    <xsl:when test="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='https://fhir.kbv.de/NamingSystem/KBV_NS_Base_ANR']/fhir:value/@value">
+                                    <xsl:when test="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='https://fhir.kbv.de/NamingSystem/KBV_NS_Base_ANR']">
                                         <label>LANR</label>
                                         <div class="text-input">
                                             <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='https://fhir.kbv.de/NamingSystem/KBV_NS_Base_ANR']/fhir:value/@value"/>
                                         </div>
                                     </xsl:when>
-                                    <xsl:when test="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='http://fhir.de/sid/kzbv/zahnarztnummer']/fhir:value/@value">
+                                    <xsl:when test="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='http://fhir.de/sid/kzbv/zahnarztnummer']">
                                         <label>ZANR</label>
                                         <div class="text-input">
                                             <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='http://fhir.de/sid/kzbv/zahnarztnummer']/fhir:value/@value"/>
                                         </div>
                                     </xsl:when>
-                                    <xsl:when test="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='https://gematik.de/fhir/sid/telematik-id']/fhir:value/@value"> <!-- TODO: und Angabe ?!? -->
+                                    <xsl:when test="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='https://gematik.de/fhir/sid/telematik-id']"> <!-- TODO: und Angabe ?!? -->
                                         <label>Telematik-ID</label> <!-- (ID 42c/52c) -->
                                         <div class="text-input">
                                             <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='https://gematik.de/fhir/sid/telematik-id']/fhir:value/@value"/>
                                         </div>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <xsl:if test="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:qualification/fhir:code/fhir:coding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_FOR_Qualification_Type']/fhir:code/@value=4">
+                                        <xsl:if test="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:qualification/fhir:code/fhir:coding[fhir:system/@value='https://fhir.kbv.de/NamingSystem/KBV_NS_FOR_Fachgruppennummer_ASV']">
                                             <!-- TODO: xsl:if test="(//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:qualification/fhir:code/fhir:coding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_FOR_Qualification_Type']/fhir:code/@value=4) and (//fhir:Composition/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_Legal_basis']/fhir:valueCoding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_KBV_STATUSKENNZEICHEN']/fhir:code/@value in ('01','11')"/
                                             <xsl:if test="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:qualification/fhir:code/fhir:coding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_FOR_Qualification_Type']/fhir:code/@value=4) and (//fhir:Composition/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_Legal_basis']/fhir:valueCoding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_KBV_STATUSKENNZEICHEN']/fhir:code/@value in ('01','11')"/>
                                             -->
@@ -1330,9 +1353,9 @@
                         <div class="col-12">
                             <div class="input-container">
                                 <label>Einrichtung</label> <!-- Name der Einrichtung (ID 62) -->
-
-                                <textarea type="text" class="text-input height-15mm" rows="auto" readonly="">
+                                <textarea type="text" class="text-input" rows="auto" readonly="">
                                     <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:name/@value"/>
+                                    <xsl:text> </xsl:text>
                                 </textarea>
                             </div>
                         </div>
@@ -1345,24 +1368,34 @@
                                     <!--xsl:text disable-output-escaping='yes'>&lt;textarea id=&#34;txt-area&#34; type=&#34;text&#34; class=&#34;text-input height-15mm&#34; readonly/&gt;</xsl:text-->
                                     <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:line/@value"/>
                                     <!--xsl:text disable-output-escaping='yes'>&lt;/textarea&gt;</xsl:text-->
+                                    <xsl:text> </xsl:text>
                                 </textarea>
                             </div>
                         </div>
-                        <div class="col-2">
-                            <div class="input-container">
-                                <label>Land</label> <!-- Wohnsitzländercode (ID 63) -->
-                                <div class="text-input">
-                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:country/@value"/>
+                        <xsl:if test="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:country">
+                            <div class="col-2">
+                                <div class="input-container">
+                                    <label>Land</label> <!-- Wohnsitzländercode (ID 63) -->
+                                    <div class="text-input">
+                                        <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:country/@value"/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </xsl:if>
                     </div>
                     <div class="row g-1">
                         <div class="col-3">
                             <div class="input-container">
                                 <label>PLZ</label> <!-- Postleitzahl (ID 64) -->
                                 <div class="text-input">
-                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:postalCode/@value"/>
+                                    <xsl:choose>
+                                        <xsl:when test="//fhir:entry/fhir:resource/fhir:Organization/fhir:identifier[fhir:system/@value='https://gematik.de/fhir/sid/telematik-id']/fhir:value/@value">
+                                            <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:postalCode/@value"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:text> </xsl:text>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
                                 </div>
                             </div>
                         </div>
@@ -1384,15 +1417,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
-                            <div class="input-container">
-                                <label>Fax</label> <!-- Fax (ID 70) -->
-                                <div class="text-input">
-                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:telecom[fhir:system/@value='fax']/fhir:value/@value"/>
-                                    <xsl:text disable-output-escaping='yes'> </xsl:text>
+                        <xsl:if test="fhir:entry/fhir:resource/fhir:Organization/fhir:telecom[fhir:system/@value='fax']">
+                            <div class="col-6">
+                                <div class="input-container">
+                                    <label>Fax</label> <!-- Fax (ID 70) -->
+                                    <div class="text-input">
+                                        <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:telecom[fhir:system/@value='fax']/fhir:value/@value"/>
+                                        <xsl:text disable-output-escaping='yes'> </xsl:text>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </xsl:if>
                     </div>
                     <div class="row g-1">
                         <div class="col-12">
@@ -1419,13 +1454,13 @@
                                 <div class="col-12">
                                     <div class="input-container">
                                         <label>Name u. Vorname</label> <!-- Titel (ID 22/55), Name (ID 141/142), Vorname (ID 44/53) -->
-                                        <div class="text-input">
+                                        <textarea type="text" class="text-input" rows="auto" readonly="">
                                             <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$attester_id]/fhir:name/fhir:prefix/@value"/>
                                             <xsl:text disable-output-escaping='yes'> </xsl:text>
                                             <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$attester_id]/fhir:name/fhir:given/@value"/>
                                             <xsl:text disable-output-escaping='yes'> </xsl:text>
                                             <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$attester_id]/fhir:name/fhir:family/@value"/>
-                                        </div>
+                                        </textarea>
                                     </div>
                                 </div>
                             </div>
@@ -1433,9 +1468,9 @@
                                 <div class="col-12">
                                     <div class="input-container">
                                         <label>Berufsbezeichnung</label> <!-- (ID 49/58) -->
-                                        <div class="text-input">
+                                        <textarea type="text" class="text-input" rows="auto" readonly="">
                                             <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$attester_id]/fhir:qualification/fhir:code/fhir:text/@value"/>
-                                        </div>
+                                        </textarea>
                                     </div>
                                 </div>
                             </div>
@@ -1548,8 +1583,8 @@
                     </xsl:choose>
                     <xsl:choose>
                         <xsl:when test="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Multiple_Prescription']/fhir:extension[@url='Kennzeichen']/fhir:valueBoolean[@value='true']">
+                            <h5>Mehrfachverordnung</h5>
                             <div class="col-12">
-                                <h5>Mehrfachverordnung</h5> <!-- TODO: Zeilenabstand -->
                                 <div class="row g-1">
                                     <!--xsl:if test="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Multiple_Prescription']/fhir:extension[@url='Nummerierung']"-->
                                     <div class="col-2">
@@ -1639,10 +1674,10 @@
 
                                             <xsl:choose>
                                                 <xsl:when test="$kategorie=00">
-                                                    <xsl:text disable-output-escaping='yes'>&lt;textarea id=&#34;txt-area&#34; type=&#34;text&#34; class=&#34;text-input&#34; readonly/&gt;</xsl:text>
+                                                    <xsl:text disable-output-escaping='yes'>&lt;textarea id=&#34;txt-area&#34; type=&#34;text&#34; class=&#34;text-input&#34; rows=&#34;auto&#34; readonly/&gt;</xsl:text>
                                                 </xsl:when>
                                                 <xsl:otherwise>
-                                                    <xsl:text disable-output-escaping='yes'>&lt;textarea id=&#34;txt-area&#34; type=&#34;text&#34; class=&#34;text-input&#34; style=&#34;font-weight: bold&#34; readonly/&gt;</xsl:text>
+                                                    <xsl:text disable-output-escaping='yes'>&lt;textarea id=&#34;txt-area&#34; type=&#34;text&#34; class=&#34;text-input&#34; rows=&#34;auto&#34; style=&#34;font-weight: bold&#34; readonly/&gt;</xsl:text>
                                                 </xsl:otherwise>
                                             </xsl:choose>
                                             <xsl:choose>
@@ -1678,7 +1713,7 @@
                                         <div class="input-container">
                                             <label>Darreichungsform</label>
                                             <xsl:variable name="_dform" select="fhir:entry/fhir:resource/fhir:Medication/fhir:form/fhir:coding/fhir:code/@value"/>
-                                            <div class="text-input">
+                                            <textarea type="text" class="text-input" rows="auto" readonly="">
                                                 <xsl:choose> <!-- S_KBV_DARREICHUNGSFORM  v1.15 Stand: 01.04.2025 -->
                                                     <xsl:when test="$_dform='---'">keine Darreichungsform (</xsl:when>
                                                     <xsl:when test="$_dform='AEO'">Ätherisches Öl (</xsl:when>
@@ -1966,7 +2001,7 @@
                                                 </xsl:choose>
                                                 <xsl:value-of select="($_dform)"/>
                                                 <xsl:text disable-output-escaping='yes'>)</xsl:text>
-                                            </div>
+                                            </textarea>
                                             <!-- TODO: Anzeige Display-Value? form.coding:kbvDarreichungsform.display -->
                                             <!--xsl:value-of select="fhir:entry/fhir:resource/fhir:Medication/fhir:form/fhir:coding/fhir:code/@value"/-->
                                         </div>
@@ -2155,9 +2190,9 @@
                                     <div class="col-4">
                                         <div class="input-container">
                                             <label>Darreichungsform</label> <!-- Darreichungsform Text (ID 104)  => 30 Zeichen -->
-                                            <div class="text-input">
+                                            <textarea type="text" class="text-input" rows="auto" readonly="">
                                                 <xsl:value-of select="fhir:entry/fhir:resource/fhir:Medication/fhir:form/fhir:text/@value"/>
-                                            </div>
+                                            </textarea>
                                         </div>
                                     </div>
                                     <!--Packungsgroesse nach N-Bezeichnung (ID 110) -> wenn angegeben -->
@@ -2248,7 +2283,7 @@
                                     <div class="col-12">
                                         <div class="input-container">
                                             <label>Freitext-Verordnung</label>
-                                            <textarea type="text" class="text-input height-25mm" rows="auto" readonly="">
+                                            <textarea type="text" class="text-input height-20mm" rows="auto" readonly="">
                                                 <!--xsl:text disable-output-escaping='yes'>&lt;textarea id=&#34;txt-area&#34; type=&#34;text&#34; class=&#34;text-input height-18mm border-dotted-t-l&#34; rows=&#34;auto&#34; readonly/&gt;</xsl:text-->
                                                 <xsl:value-of select="fhir:entry/fhir:resource/fhir:Medication/fhir:code/fhir:text/@value"/>
                                                 <!--xsl:text_ disable-output-escaping='yes'>&lt;/textarea&gt;</xsl:text-->
@@ -2261,9 +2296,9 @@
                                         <div class="col-12">
                                             <div class="input-container">
                                                 <label>Darreichungsform</label> <!-- Darreichungsform Text (ID 104) => 30 Zeichen -->
-                                                <div class="text-input">
+                                                <textarea type="text" class="text-input" rows="auto" readonly="">
                                                     <xsl:value-of select="fhir:entry/fhir:resource/fhir:Medication/fhir:form/fhir:text/@value"/>
-                                                </div>
+                                                </textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -2342,9 +2377,9 @@
                                         <div class="col-3">
                                             <div class="input-container">
                                                 <label>Darreichungsform</label> <!-- Darreichungsform Text (ID 104) => 30 Zeichen-->
-                                                <div class="text-input">
+                                                <textarea type="text" class="text-input" rows="auto" readonly="">
                                                     <xsl:value-of select="fhir:entry/fhir:resource/fhir:Medication/fhir:form/fhir:text/@value"/>
-                                                </div>
+                                                </textarea>
                                             </div>
                                         </div>
                                     </xsl:if>
@@ -2377,18 +2412,16 @@
                                                 </div>
                                             </div>
                                         </xsl:if>
-                                        <xsl:choose>
-                                            <xsl:when test="//fhir:Medication/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_Packaging']/fhir:valueString/@value">
-                                                <div class="col-3">
-                                                    <div class="input-container">
-                                                        <label>Darreichungsform</label> <!-- ID 132  => 30 Zeichen-->
-                                                        <div class="text-input">
-                                                            <xsl:value-of select="fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_Ingredient_Form']/fhir:valueString/@value"/>
-                                                        </div>
-                                                    </div>
+                                        <xsl:if test="fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_Packaging']">
+                                            <div class="col-3">
+                                                <div class="input-container">
+                                                    <label>Darreichungsform</label> <!-- ID 132  => 30 Zeichen-->
+                                                    <textarea type="text" class="text-input" rows="auto" readonly="">
+                                                        <xsl:value-of select="fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_Ingredient_Form']/fhir:valueString/@value"/>
+                                                    </textarea>
                                                 </div>
-                                            </xsl:when>
-                                        </xsl:choose>
+                                            </div>
+                                        </xsl:if>
                                     </div>
                                     <div class="row g-1"> <!-- TODO activate function "justify-content-end" -->
                                         <div class="col-1">
@@ -2430,9 +2463,9 @@
                                         <div class="col-12">
                                             <div class="input-container">
                                                 <label>Herstellungsanweisung</label> <!-- ID 126 -->
-                                                <xsl:text disable-output-escaping='yes'>&lt;textarea id=&#34;txt-area&#34; type=&#34;text&#34; class=&#34;text-input height-15mm&#34; readonly/&gt;</xsl:text>
-                                                <xsl:value-of select="//fhir:Medication/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_CompoundingInstruction']/fhir:valueString/@value"/>
-                                                <xsl:text disable-output-escaping='yes'>&lt;/textarea&gt;</xsl:text>
+                                                <textarea type="text" class="text-input" rows="auto" readonly="">
+                                                    <xsl:value-of select="//fhir:Medication/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_CompoundingInstruction']/fhir:valueString/@value"/>
+                                                </textarea>
                                             </div>
                                         </div>
                                     </xsl:when>
@@ -2442,9 +2475,9 @@
                                         <div class="col-12">
                                             <div class="input-container">
                                                 <label>Verpackung</label> <!-- ID 127 -->
-                                                <xsl:text disable-output-escaping='yes'>&lt;textarea id=&#34;txt-area&#34; type=&#34;text&#34; class=&#34;text-input height-15mm&#34; readonly/&gt;</xsl:text>
-                                                <xsl:value-of select="//fhir:Medication/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_Packaging']/fhir:valueString/@value"/>
-                                                <xsl:text disable-output-escaping='yes'>&lt;/textarea&gt;</xsl:text>
+                                                <textarea type="text" class="text-input" rows="auto" readonly="">
+                                                    <xsl:value-of select="//fhir:Medication/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_Packaging']/fhir:valueString/@value"/>
+                                                </textarea>
                                             </div>
                                         </div>
                                     </xsl:when>
@@ -2462,11 +2495,8 @@
                                                     <xsl:when test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:dosageInstruction/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_DosageFlag']/fhir:valueBoolean[@value='true']">
                                                         <xsl:if test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:dosageInstruction/fhir:text/@value">
                                                             <label>Dosierung</label>
-                                                            <!-- TODO: dynamische JS Feldgrößenanpassung -->
-                                                            <textarea type="text" class="text-input height-15mm" rows="auto" readonly="">
-                                                                <!--xsl:text disable-output-escaping='yes'>&lt;textarea id=&#34;txt-area&#34; type=&#34;text&#34; class=&#34;text-input&#34; style=&#34;height:20mm&#34; readonly/&gt;</xsl:text-->
+                                                            <textarea type="text" class="text-input" rows="auto" readonly="">
                                                                 <xsl:value-of select="fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:dosageInstruction/fhir:text/@value"/>
-                                                                <!--xsl:text disable-output-escaping='yes'>&lt;/textarea&gt;</xsl:text-->
                                                             </textarea>
                                                         </xsl:if>
                                                     </xsl:when>
@@ -2480,9 +2510,9 @@
                                             </xsl:if>
                                             <xsl:if test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:dosageInstruction/fhir:patientInstruction/@value">
                                                 <label>Dosierung (Anwendungshinweise)</label> <!-- TODO  Textausgabe?-->
-                                                <div class="text-input">
+                                                <textarea type="text" class="text-input" rows="auto" readonly="">
                                                     <xsl:value-of select="fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:dosageInstruction/fhir:patientInstruction/@value"/>
-                                                </div>
+                                                </textarea>
                                             </xsl:if>
                                         </xsl:when>
                                         <xsl:otherwise>
@@ -2490,7 +2520,6 @@
                                             <div class="text-input">
                                                 <xsl:text disable-output-escaping='yes'>keine Dosierung angegeben</xsl:text>
                                             </div>
-                                            <br/>
                                         </xsl:otherwise>
                                     </xsl:choose>
                                 </div>
@@ -2501,9 +2530,9 @@
                                 <div class="col">
                                     <div class="input-container">
                                         <label>Abgabehinweise</label> <!-- (ID 105) -->
-                                        <div class="text-input">
+                                        <textarea type="text" class="text-input" rows="auto" readonly="">
                                             <xsl:value-of select="fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:note/fhir:text/@value"/>
-                                        </div>
+                                        </textarea>
                                     </div>
                                 </div>
                             </div>
@@ -2522,6 +2551,16 @@
         <script src="js/bootstrap.bundle.min.js"></script>
         <script src="js/popper.min.js"></script>
         <script src="js/jquery-3.5.1.slim.min.js"></script>
+
+        <!-- Anpassung ger Hintergrundfarbe bei PKV oder SEL Kostenträgertyp -->
+        <xsl:if test="(//fhir:entry/fhir:resource/fhir:Coverage/fhir:type/fhir:coding/fhir:code/@value='PKV') or (//fhir:entry/fhir:resource/fhir:Coverage/fhir:type/fhir:coding/fhir:code/@value='SEL')">
+            <script>
+                window.onload = () => {
+                document.documentElement.style.setProperty('--background-color-ges', '#c6dffd');
+                document.documentElement.style.setProperty('--border-background-color-ges', '#d8c5ff');
+                };
+            </script>
+        </xsl:if>
     </xsl:template>
 
     <!-- weitere Hilfs-Templates -->
