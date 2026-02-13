@@ -1108,7 +1108,7 @@
                                 </div>
                                 <div class="col-2">
                                     <div class="checkbox-container">
-                                        <label>eMP-Identifier</label> <!-- ID 188 -->
+                                        <label>eMP</label> <!-- ID 188 -->
                                         <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
                                             <xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text> <!-- Ja -->
                                     </div>
@@ -2654,7 +2654,7 @@
                 <b> <xsl:call-template name="getVersion">
                     <xsl:with-param name="url" select="//fhir:meta/fhir:profile/@value"/>
                 </xsl:call-template></b> PRF.NR.:<b> <xsl:value-of select="//fhir:Composition/fhir:author[fhir:type/@value='Device']/fhir:identifier/fhir:value/@value"/></b>
-                Stylesheet: <b>v1.9</b>
+                Stylesheet: <b>v1.10</b>
             </p>
         </div>
 
