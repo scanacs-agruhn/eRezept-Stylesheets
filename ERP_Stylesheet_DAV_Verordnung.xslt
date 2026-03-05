@@ -427,54 +427,55 @@
                     </xsl:text>
                 </style>
                 <style>
+                    <xsl:text disable-output-escaping='yes'>
                     /* Internes Stylesheet */
                     :root{
-                    --background-color-ges: #ffffff; /* #F7B8CA M16 -> Farbauswertung Rezeptarten */
-                    --border-background-color-ges: #F7B8CA; /* #F48BAA M16 -> Farbauswertung Rezeptarten */
-                    --text-color-ges: #EA6769; /* #bf5473; */
-                    --text-color-inputs: #000000;
-                    --background-stripes-color: #e9e9e9;
-                    --outter-div-bg-color: #ffffff;
-                    --background-color-int: var(--border-background-color-ges);
-                    --border-background-color-int: var(--border-background-color-ges);
+                        --background-color-ges: #ffffff; /* M16 -> Farbauswertung Rezeptarten */
+                        --border-background-color-ges: #F7B8CA; /* M16 -> Farbauswertung Rezeptarten */
+                        --text-color-ges: #EA6769;
+                        --text-color-inputs: #000000;
+                        --background-stripes-color: #e9e9e9;
+                        --outter-div-bg-color: #ffffff;
+                        --background-color-int: var(--border-background-color-ges);
+                        --border-background-color-int: var(--border-background-color-ges);
                     }
 
                     body {
-                    width: 210mm;
-                    max-width: 210mm;
-                    min-width: 210mm;
-                    left:0;
-                    top: 0;
-                    margin: 0px;
-                    padding: 5mm;
-                    font-size: 12px;
-                    font-family: Arial, sans-serif;
-                    background: repeating-linear-gradient(
-                    135deg,
-                    var(--background-stripes-color),
-                    var(--background-stripes-color) 10px,
-                    transparent 10px,
-                    transparent 20px
-                    );
+                        width: 210mm;
+                        max-width: 210mm;
+                        min-width: 210mm;
+                        left:0;
+                        top: 0;
+                        margin: 0px;
+                        padding: 5mm;
+                        font-size: 12px;
+                        font-family: Arial, sans-serif;
+                        background: repeating-linear-gradient(
+                        135deg,
+                        var(--background-stripes-color),
+                        var(--background-stripes-color) 10px,
+                            transparent 10px,
+                            transparent 20px
+                        );
                     }
 
                     .background-container-ges{
-                    background-color: var(--background-color-ges);
-                    border: 1px solid var(--border-background-color-ges);
+                        background-color: var(--background-color-ges);
+                        border: 1px solid var(--border-background-color-ges);
                     }
 
                     h1{
-                    font-size: large;
-                    font-weight: bold;
+                        font-size: large;
+                        font-weight: bold;
                     }
 
                     h4{
-                    margin-top: 2mm;
-                    color:var(--text-color-ges);
-                    font-size: medium;
-                    font-weight: bold;
-                    padding-bottom: 0px;
-                    margin-bottom: 0px;
+                        margin-top: 2mm;
+                        color:var(--text-color-ges);
+                        font-size: medium;
+                        font-weight: bold;
+                        padding-bottom: 0px;
+                        margin-bottom: 0px;
                     }
 
                     h5{
@@ -587,7 +588,6 @@
                         margin-left: 0px;
                         font-size: 10px;
                         color: var(--text-color-inputs);
-                        vertical-align;
                         margin-top-min-1;
                     }
 
@@ -601,45 +601,45 @@
 
                     /* Hide the default checkbox */
                     input[type="checkbox"] {
-                    margin-left: 3px;
-                    accent-color: var(--text-color-ges);
-                    border: 1px solid var(--text-color-ges);
-                    outline: var(--text-color-ges);
-                    -webkit-appearance: none;
-                    -moz-appearance: none;
-                    appearance: none; /* Removes default styling */
-                    width: 15px;
-                    min-width: 15px;
-                    height: 15px;
-                    border: 1px solid var(--text-color-ges); /* Default border color */
-                    background-color: var(--background-color-ges); /* Default background color */
-                    cursor: pointer;
+                        margin-left: 3px;
+                        accent-color: var(--text-color-ges);
+                        border: 1px solid var(--text-color-ges);
+                        outline: var(--text-color-ges);
+                        -webkit-appearance: none;
+                        -moz-appearance: none;
+                        appearance: none; /* Removes default styling */
+                        width: 15px;
+                        min-width: 15px;
+                        height: 15px;
+                        border: 1px solid var(--text-color-ges); /* Default border color */
+                        background-color: var(--background-color-ges); /* Default background color */
+                        cursor: pointer;
                     }
 
                     /* Change the background color when checked */
                     input[type="checkbox"]:checked {
-                    background-color: var(--background-color-ges); /* Green when checked */
-                    border-color: var(--text-color-ges); /* Green border when checked */
+                        background-color: var(--background-color-ges); /* Green when checked */
+                        border-color: var(--text-color-ges); /* Green border when checked */
                     }
 
                     /* Add a checkmark */
                     input[type="checkbox"]:checked::before {
-                    content: "x";
-                    display: block;
-                    text-align: center;
-                    font-size: 16px;
-                    line-height: 11px; /* Align the checkmark vertically */
-                    top: -10px;
-                    width: 15px;
-                    height: 15px;
-                    min-width: 15px;
-                    margin-left: -1px;
+                        content: "x";
+                        display: block;
+                        text-align: center;
+                        font-size: 16px;
+                        line-height: 11px; /* Align the checkmark vertically */
+                        top: -10px;
+                        width: 15px;
+                        height: 15px;
+                        min-width: 15px;
+                        margin-left: -1px;
                     }
 
                     .row .col-2 {
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-start; /* Aligns all checkboxes to the left edge */
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start; /* Aligns all checkboxes to the left edge */
                     }
 
                     .outter-div {
@@ -657,30 +657,31 @@
                     }
 
                     .row .col-1-5{
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-start; /* Aligns all checkboxes to the left edge */
-                    flex: 0 0 auto;
-                    width: 12.5%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start; /* Aligns all checkboxes to the left edge */
+                        flex: 0 0 auto;
+                        width: 12.5%;
                     }
 
                     .row .col-2-5{
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-start; /* Aligns all checkboxes to the left edge */
-                    flex: 0 0 auto;
-                    width: 20.8333333333333%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start; /* Aligns all checkboxes to the left edge */
+                        flex: 0 0 auto;
+                        width: 20.8333333333333%;
                     }
 
                     @media print {
-                    @page {
-                    size: A4;
-                    margin: 0;
-                    }
-                    body {
-                    margin: 0;
-                    padding: 0;
-                    }
+                        @page {
+                            size: A4;
+                            margin: 0;
+                        }
+
+                        body {
+                            margin: 0;
+                            padding: 0;
+                        }
                     }
 
                     .width-100{ width: 100%; }
@@ -704,52 +705,31 @@
                     .border-dotted-t{ border-top: 1px dotted var(--border-color-dark); }
                     .border-right-none{ border-right: none; }
                     .border-dotted-t-l{
-                    border-top: 1px dotted var(--border-color-dark);
-                    border-left: 1px dotted var(--border-color-dark);
+                        border-top: 1px dotted var(--border-color-dark);
+                        border-left: 1px dotted var(--border-color-dark);
                     }
                     .border-left{
-                    border: 1px solid var(--border-color-dark);
-                    border-right: none;
-                    border-left: 1px dotted var(--border-color-dark);
+                        border: 1px solid var(--border-color-dark);
+                        border-right: none;
+                        border-left: 1px dotted var(--border-color-dark);
                     }
                     .border-right{
-                    border: 1px solid var(--border-color-dark);
-                    border-right: 1px dotted var(--border-color-dark);
-                    border-left: none;
+                        border: 1px solid var(--border-color-dark);
+                        border-right: 1px dotted var(--border-color-dark);
+                        border-left: none;
                     }
                     .border-left-right{
-                    border: 1px solid var(--border-color-dark);
-                    border-left: 1px dotted var(--border-color-dark);
+                        border: 1px solid var(--border-color-dark);
+                        border-left: 1px dotted var(--border-color-dark);
                     }
                     .border-right-left{
-                    border: 1px solid var(--border-color-dark);
-                    border-right: none;
+                        border: 1px solid var(--border-color-dark);
+                        border-right: none;
                     }
                     /* Internes Stylesheet Ende */
+                    </xsl:text>
                 </style>
                 <title>DAV Stylesheet Verordnung</title>
-                <script>
-                    <![CDATA[
-						function calcHeight(value) {
-                            let numberOfLineBreaks = (value.match(/\n/g) || []).length;
-                            numberOfLineBreaks = Math.max(numberOfLineBreaks, 1)
-
-                            newHeight = 20 + (Math.max(numberOfLineBreaks, Math.round((value.length/35))) * 25);
-                            return newHeight;
-                        }
-
-						function formatHeightOfTextarea() {
-							const fields = ['resize_ta1','resize_ta2','resize_ta3','resize_ta4','resize_ta5','resize_ta6','resize_ta7','resize_ta8','resize_ta9','resize_ta10','resize_ta11','resize_ta12','resize_ta13','resize_ta14','resize_ta15','resize_ta16','resize_ta17','resize_ta18','resize_ta19','resize_ta20','resize_ta21','resize_ta22','resize_ta23', 'resize_ta24', 'resize_ta25'];
-							fields.forEach(id => {
-								const el = document.getElementById(id);
-								if (el) {
-                                    el.style.height = calcHeight(el.value) + "px";
-							    }
-                            });
-						}
-						document.addEventListener('DOMContentLoaded', formatHeightOfTextarea);
-					]]>
-                </script>
             </head>
             <body>
                 <xsl:choose>
@@ -1011,7 +991,7 @@
                         </div>
                         <div class="col-4">
                             <div class="input-container">
-                                <label>Geburtstag</label> <!-- ID 25 -->
+                                <label>Geburtsdatum</label> <!-- ID 25 -->
                                 <div class="text-input">
                                     <xsl:call-template name="formatDate">
                                         <xsl:with-param name="date" select="//fhir:entry/fhir:resource/fhir:Patient/fhir:birthDate/@value"/>
@@ -1359,6 +1339,7 @@
                                         <xsl:if test="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:qualification/fhir:code/fhir:coding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_FOR_Qualification_Type']/fhir:code/@value=1">
                                             <label>keine Angabe</label>
                                             <div class="text-input">
+                                                <xsl:text disable-output-escaping='yes'> </xsl:text>
                                             </div>
                                         </xsl:if>
                                     </xsl:otherwise>
@@ -1401,6 +1382,7 @@
                                     <xsl:otherwise>
                                         <label> </label> <!-- Platzhalter?!? --> <!-- TODO: was macht das Design?!? -->
                                         <div class="text-input">
+                                            <xsl:text disable-output-escaping='yes'> </xsl:text>
                                         </div>
                                     </xsl:otherwise>
                                 </xsl:choose>
@@ -2662,55 +2644,89 @@
         <!-- Anpassung ger Hintergrundfarbe (blau) bei PKV oder SEL Kostenträgertyp -->
         <xsl:if test="(//fhir:entry/fhir:resource/fhir:Coverage/fhir:type/fhir:coding/fhir:code/@value='PKV') or (//fhir:entry/fhir:resource/fhir:Coverage/fhir:type/fhir:coding/fhir:code/@value='SEL')">
             <script>
+                <xsl:text disable-output-escaping='yes'>
                 window.onload = () => {
-                document.documentElement.style.setProperty('--background-color-ges', '#ffffff'); // #99ccff
-                document.documentElement.style.setProperty('--border-background-color-ges', '#99ccff'); //#6f94f7
-                document.documentElement.style.setProperty('--text-color-ges', '#0066cc'); // #0066cc
+                document.documentElement.style.setProperty('--background-color-ges', '#ffffff');
+                document.documentElement.style.setProperty('--border-background-color-ges', '#99ccff');
+                document.documentElement.style.setProperty('--text-color-ges', '#0066cc');
                 };
+                </xsl:text>
             </script>
         </xsl:if>
         <!-- Anpassung ger Hintergrundfarbe (gelb) bei BtM  -->
         <xsl:if test="//fhir:entry/fhir:resource/fhir:Medication/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_Category']/fhir:valueCoding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_ERP_Medication_Category']/fhir:code/@value='01'">
             <script>
+                <xsl:text disable-output-escaping='yes'>
                 window.onload = () => {
-                    document.documentElement.style.setProperty('--background-color-ges', '#ffffff'); // #e7f59a
-                    document.documentElement.style.setProperty('--border-background-color-ges', '#FFF44F'); // #e5f783
-                    document.documentElement.style.setProperty('--text-color-ges', '#EA6769'); // #687a04
+                    document.documentElement.style.setProperty('--background-color-ges', '#ffffff');
+                    document.documentElement.style.setProperty('--border-background-color-ges', '#FFFACD');
+                    document.documentElement.style.setProperty('--text-color-ges', '#EA6769');
                     document.documentElement.style.setProperty('--outter-div-bg-color', '#F7B8CA');
                 };
+                </xsl:text>
             </script>
         </xsl:if>
         <xsl:if test="//fhir:entry/fhir:resource/fhir:Medication/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_Category']/fhir:valueCoding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_ERP_Medication_Category']/fhir:code/@value='01' and ((//fhir:entry/fhir:resource/fhir:Coverage/fhir:type/fhir:coding/fhir:code/@value='PKV') or (//fhir:entry/fhir:resource/fhir:Coverage/fhir:type/fhir:coding/fhir:code/@value='SEL'))">
             <script>
+                <xsl:text disable-output-escaping='yes'>
                 window.onload = () => {
-                    document.documentElement.style.setProperty('--background-color-ges', '#ffffff'); // #e7f59a
-                    document.documentElement.style.setProperty('--border-background-color-ges', '#FFF44F'); // #e5f783
-                    document.documentElement.style.setProperty('--text-color-ges', '#EA6769'); // #687a04
+                    document.documentElement.style.setProperty('--background-color-ges', '#ffffff');
+                    document.documentElement.style.setProperty('--border-background-color-ges', '#FFFACD');
+                    document.documentElement.style.setProperty('--text-color-ges', '#EA6769');
                     document.documentElement.style.setProperty('--outter-div-bg-color', '#99ccff');
                 };
+                </xsl:text>
             </script>
         </xsl:if>
         <!-- Anpassung ger Hintergrundfarbe (weiß) bei T-Rezept -->
         <xsl:if test="(//fhir:entry/fhir:resource/fhir:Medication/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_Category']/fhir:valueCoding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_ERP_Medication_Category']/fhir:code/@value='02')">
             <script>
+                <xsl:text disable-output-escaping='yes'>
                 window.onload = () => {
-                    document.documentElement.style.setProperty('--background-color-ges', '#ffffff'); // #CC1355 oder #EA6769
+                    document.documentElement.style.setProperty('--background-color-ges', '#ffffff');
                     document.documentElement.style.setProperty('--border-background-color-ges', '#ffffff');
-                    document.documentElement.style.setProperty('--text-color-ges', '#EA6769'); // #000000
+                    document.documentElement.style.setProperty('--text-color-ges', '#EA6769');
                     document.documentElement.style.setProperty('--outter-div-bg-color', '#F7B8CA');
                 };
+                </xsl:text>
             </script>
         </xsl:if>
         <xsl:if test="(//fhir:entry/fhir:resource/fhir:Medication/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_Category']/fhir:valueCoding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_ERP_Medication_Category']/fhir:code/@value='02') and ((//fhir:entry/fhir:resource/fhir:Coverage/fhir:type/fhir:coding/fhir:code/@value='PKV') or (//fhir:entry/fhir:resource/fhir:Coverage/fhir:type/fhir:coding/fhir:code/@value='SEL'))">
             <script>
+                <xsl:text disable-output-escaping='yes'>
                 window.onload = () => {
-                    document.documentElement.style.setProperty('--background-color-ges', '#ffffff'); // #CC1355 oder #EA6769
+                    document.documentElement.style.setProperty('--background-color-ges', '#ffffff');
                     document.documentElement.style.setProperty('--border-background-color-ges', '#ffffff');
-                    document.documentElement.style.setProperty('--text-color-ges', '#EA6769'); // #000000
+                    document.documentElement.style.setProperty('--text-color-ges', '#EA6769');
                     document.documentElement.style.setProperty('--outter-div-bg-color', '#99ccff');
                 };
+                </xsl:text>
             </script>
         </xsl:if>
+        <script>
+            <xsl:text disable-output-escaping='yes'>
+                    <![CDATA[
+            function calcHeight(value) {
+                let numberOfLineBreaks = (value.match(/\n/g) || []).length;
+                numberOfLineBreaks = Math.max(numberOfLineBreaks, 1)
+
+                newHeight = 20 + (Math.max(numberOfLineBreaks, Math.round((value.length/35))) * 25);
+                return newHeight;
+            }
+
+            function formatHeightOfTextarea() {
+                const fields = ['resize_ta1','resize_ta2','resize_ta3','resize_ta4','resize_ta5','resize_ta6','resize_ta7','resize_ta8','resize_ta9','resize_ta10','resize_ta11','resize_ta12','resize_ta13','resize_ta14','resize_ta15','resize_ta16','resize_ta17','resize_ta18','resize_ta19','resize_ta20','resize_ta21','resize_ta22','resize_ta23', 'resize_ta24', 'resize_ta25'];
+                fields.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.style.height = calcHeight(el.value) + "px";
+                    }
+                });
+            }
+            document.addEventListener('DOMContentLoaded', formatHeightOfTextarea);
+            ]]>
+            </xsl:text>
+                </script>
     </xsl:template>
 
     <xsl:template match="//fhir:entry/fhir:resource/fhir:MedicationRequest"> <!-- T-Rezept & BtM-->
@@ -2854,7 +2870,7 @@
         <xsl:value-of select="$version"/>
     </xsl:template>
 
-    <xsl:template name="formatDate"> /* TODO: Was bei fehlender Angabe Tag oder Monat? -> sowie DataAbsentReason ?!? */
+    <xsl:template name="formatDate"> <!-- TODO: Was bei fehlender Angabe Tag oder Monat? -> sowie DataAbsentReason ?!? -->
         <xsl:param name="date"/>
         <xsl:variable name="yearNum" select="substring ($date, 1, 4)"/>
         <xsl:variable name="monthNum" select="substring ($date, 6, 2)"/>
