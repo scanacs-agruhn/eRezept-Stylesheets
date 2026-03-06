@@ -7,10 +7,11 @@
                 exclude-result-prefixes="fhir xhtml">
 
     <!-- Ersteller: (ABDA/DAV) fhir@abda.de -->
+	<xsl:param name="anonymize" select="'false'"/>
 
     <xsl:output method="html" encoding="UTF-8" indent="yes" omit-xml-declaration="yes"/>
     <xsl:template match="/">
-        <xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html&gt;</xsl:text>
+		<xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html&gt;</xsl:text>
         <html lang="de">
             <head>
                 <meta charset="UTF-8"/>
@@ -761,7 +762,16 @@
     </xsl:template>
 
     <xsl:template match="fhir:Bundle[not(ancestor::fhir:Bundle)]">
-        <h1>Verordnung</h1>
+		<xsl:choose>
+			<xsl:when test="$anonymize='true'">
+				<h1>Verordnung (anonymisierte Ausgabe)</h1>
+                <!--xsl:value-of select="if ($anonymize='true') then 'anonymisiert' else 'OriginalWErt'"/  leider erst ab XSLT 2.0+ -->
+			</xsl:when>
+			<xsl:otherwise>
+				<!-- normale Ausgabe -->
+				<h1>Verordnung</h1>
+			</xsl:otherwise>
+		</xsl:choose>            
         <div class="background-container-ges outter-div">
             <div class="row g-1 intern-container">
                 <div class="col-md-6 border-1">
@@ -838,7 +848,15 @@
                                     </xsl:when>
                                 </xsl:choose>
                                 <div class="text-input">
-                                    <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:identifier/fhir:value/@value"/>
+                                    <xsl:choose>
+                                        <xsl:when test="$anonymize='true'">
+                                            <xsl:value-of select="'++++++++++'"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <!-- normale Ausgabe -->
+                                            <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:identifier/fhir:value/@value"/>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
                                 </div>
                             </div>
                         </div>
@@ -976,26 +994,44 @@
                         <div class="col-8">
                             <div class="input-container">
                                 <label>Name u. Vorname d. Versicherten</label> <!-- TODO: Titel 22, Vorname 20, Name 21 ?!? -->
-                                <textarea id="resize_ta1" class="text-input" rows="auto" readonly="">
-                                    <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:name/fhir:prefix/@value">
-                                        <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:name/fhir:prefix/@value"/>
-                                        <xsl:text> </xsl:text>
-                                    </xsl:if>
-                                    <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:name/fhir:given/@value">
-                                        <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:name/fhir:given/@value"/>
-                                        <xsl:text> </xsl:text>
-                                    </xsl:if>
-                                    <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:name/fhir:family/@value"/>
-                                </textarea>
+                                <xsl:choose>
+                                    <xsl:when test="$anonymize='true'">
+                                        <div class="text-input">
+                                            <xsl:value-of select="'+++++ ++++++ ++++++++'"/>
+                                        </div>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <!-- normale Ausgabe -->
+                                        <textarea id="resize_ta1" class="text-input" rows="auto" readonly="">
+                                            <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:name/fhir:prefix/@value">
+                                                <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:name/fhir:prefix/@value"/>
+                                                <xsl:text> </xsl:text>
+                                            </xsl:if>
+                                            <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:name/fhir:given/@value">
+                                                <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:name/fhir:given/@value"/>
+                                                <xsl:text> </xsl:text>
+                                            </xsl:if>
+                                            <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:name/fhir:family/@value"/>
+                                        </textarea>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="input-container">
                                 <label>Geburtsdatum</label> <!-- ID 25 -->
                                 <div class="text-input">
-                                    <xsl:call-template name="formatDate">
-                                        <xsl:with-param name="date" select="//fhir:entry/fhir:resource/fhir:Patient/fhir:birthDate/@value"/>
-                                    </xsl:call-template>
+                                    <xsl:choose>
+                                        <xsl:when test="$anonymize='true'">
+                                            <xsl:value-of select="'++.++.++++'"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <!-- normale Ausgabe -->
+                                            <xsl:call-template name="formatDate">
+                                                <xsl:with-param name="date" select="//fhir:entry/fhir:resource/fhir:Patient/fhir:birthDate/@value"/>
+                                            </xsl:call-template>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
                                 </div>
                             </div>
                         </div>
@@ -1009,14 +1045,24 @@
                                 <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
                                     <label>Postfachanschrift</label>
                                 </xsl:if>
-                                <textarea id="resize_ta2" class="text-input" rows="auto" readonly="">
-                                    <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']">
-                                        <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:line/@value"/>
-                                    </xsl:if>
-                                    <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
-                                        <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:line/@value"/>
-                                    </xsl:if>
-                                </textarea>
+                                <xsl:choose>
+                                    <xsl:when test="$anonymize='true'">
+                                        <div class="text-input">
+                                            <xsl:value-of select="'++++++++ ++'"/>
+                                        </div>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <!-- normale Ausgabe -->
+                                        <textarea id="resize_ta2" class="text-input" rows="auto" readonly="">
+                                            <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']">
+                                                <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:line/@value"/>
+                                            </xsl:if>
+                                            <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
+                                                <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:line/@value"/>
+                                            </xsl:if>
+                                        </textarea>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </div>
                         </div>
                         <xsl:if test="(fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:country) or (fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:country)">
@@ -1024,12 +1070,20 @@
                                 <div class="input-container">
                                     <label>Land</label> <!-- Wohnsitzlaendercode (ID 28/35) -->
                                     <div class="text-input">
-                                        <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']">
-                                            <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:country/@value"/>
-                                        </xsl:if>
-                                        <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
-                                            <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:country/@value"/>
-                                        </xsl:if>
+                                        <xsl:choose>
+                                            <xsl:when test="$anonymize='true'">
+                                                <xsl:value-of select="'+'"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <!-- normale Ausgabe -->
+                                                <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']">
+                                                    <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:country/@value"/>
+                                                </xsl:if>
+                                                <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
+                                                    <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:country/@value"/>
+                                                </xsl:if>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                     </div>
                                 </div>
                             </div>
@@ -1040,12 +1094,20 @@
                             <div class="input-container">
                                 <label>PLZ</label> <!-- PLZ (ID 29/36) -->
                                 <div class="text-input">
-                                    <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']">
-                                        <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:postalCode/@value"/>
-                                    </xsl:if>
-                                    <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
-                                        <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:postalCode/@value"/>
-                                    </xsl:if>
+                                    <xsl:choose>
+                                        <xsl:when test="$anonymize='true'">
+                                            <xsl:value-of select="'+++++'"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <!-- normale Ausgabe -->
+                                            <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']">
+                                                <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:postalCode/@value"/>
+                                            </xsl:if>
+                                            <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
+                                                <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:postalCode/@value"/>
+                                            </xsl:if>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
                                 </div>
                             </div>
                         </div>
@@ -1053,12 +1115,20 @@
                             <div class="input-container">
                                 <label>Ort</label> <!-- Ort (ID 30/37) -->
                                 <div class="text-input">
-                                    <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']">
-                                        <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:city/@value"/>
-                                    </xsl:if>
-                                    <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
-                                        <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:city/@value"/>
-                                    </xsl:if>
+                                    <xsl:choose>
+                                        <xsl:when test="$anonymize='true'">
+                                            <xsl:value-of select="'+++++++'"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <!-- normale Ausgabe -->
+                                            <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']">
+                                                <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:city/@value"/>
+                                            </xsl:if>
+                                            <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
+                                                <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:city/@value"/>
+                                            </xsl:if>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
                                 </div>
                             </div>
                         </div>
@@ -1261,15 +1331,25 @@
                         <div class="col-12">
                             <div class="input-container">
                                 <label>Name u. Vorname</label> <!-- Titel (ID 22/55), Name (ID 141/142), Vorname (ID 44/53) -->
-                                <textarea id="resize_ta3" class="text-input" rows="auto" readonly="">
-                                    <xsl:if test="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:name/fhir:prefix/@value">
-                                        <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:name/fhir:prefix/@value"/>
-                                        <xsl:text disable-output-escaping='yes'> </xsl:text>
-                                    </xsl:if>
-                                    <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:name/fhir:given/@value"/>
-                                    <xsl:text disable-output-escaping='yes'> </xsl:text>
-                                    <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:name/fhir:family/@value"/>
-                                </textarea>
+                                <xsl:choose>
+                                    <xsl:when test="$anonymize='true'">
+                                        <div class="text-input">
+                                            <xsl:value-of select="'+++++ ++++++ ++++++++'"/>
+                                        </div>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <!-- normale Ausgabe -->
+                                        <textarea id="resize_ta3" class="text-input" rows="auto" readonly="">
+                                            <xsl:if test="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:name/fhir:prefix/@value">
+                                                <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:name/fhir:prefix/@value"/>
+                                                <xsl:text disable-output-escaping='yes'> </xsl:text>
+                                            </xsl:if>
+                                            <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:name/fhir:given/@value"/>
+                                            <xsl:text disable-output-escaping='yes'> </xsl:text>
+                                            <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:name/fhir:family/@value"/>
+                                        </textarea>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </div>
                         </div>
                     </div>
@@ -1290,13 +1370,14 @@
                                 <div class="text-input">
                                     <xsl:variable name="arzttyp" select="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:qualification/fhir:code/fhir:coding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_FOR_Qualification_Type']/fhir:code/@value"/>
                                     <xsl:choose>
-                                        <xsl:when test="$arzttyp=00">Arzt = </xsl:when>
-                                        <xsl:when test="$arzttyp=01">Zahnarzt = </xsl:when>
-                                        <xsl:when test="$arzttyp=02">Hebamme = </xsl:when>
-                                        <xsl:when test="$arzttyp=03">Arzt in Weiterbildung = </xsl:when>
-                                        <xsl:when test="$arzttyp=04">Arzt als Vertreter = </xsl:when>
+                                        <xsl:when test="$arzttyp=00">Arzt (</xsl:when>
+                                        <xsl:when test="$arzttyp=01">Zahnarzt (</xsl:when>
+                                        <xsl:when test="$arzttyp=02">Hebamme (</xsl:when>
+                                        <xsl:when test="$arzttyp=03">Arzt in Weiterbildung (</xsl:when>
+                                        <xsl:when test="$arzttyp=04">Arzt als Vertreter (</xsl:when>
                                     </xsl:choose>
-                                    <xsl:value-of select="($arzttyp)" />
+                                    <xsl:value-of select="($arzttyp)"/>
+                                    <xsl:text disable-output-escaping='yes'>)</xsl:text>
                                 </div>
                             </div>
                         </div>
@@ -1308,19 +1389,43 @@
                                     <xsl:when test="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='https://fhir.kbv.de/NamingSystem/KBV_NS_Base_ANR']">
                                         <label>LANR</label>
                                         <div class="text-input">
-                                            <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='https://fhir.kbv.de/NamingSystem/KBV_NS_Base_ANR']/fhir:value/@value"/>
+                                            <xsl:choose>
+                                                <xsl:when test="$anonymize='true'">
+                                                    <xsl:value-of select="'+++++++++'"/>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <!-- normale Ausgabe -->
+                                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='https://fhir.kbv.de/NamingSystem/KBV_NS_Base_ANR']/fhir:value/@value"/>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
                                         </div>
                                     </xsl:when>
                                     <xsl:when test="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='http://fhir.de/sid/kzbv/zahnarztnummer']">
                                         <label>ZANR</label>
                                         <div class="text-input">
-                                            <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='http://fhir.de/sid/kzbv/zahnarztnummer']/fhir:value/@value"/>
+                                            <xsl:choose>
+                                                <xsl:when test="$anonymize='true'">
+                                                    <xsl:value-of select="'+++++++++'"/>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <!-- normale Ausgabe -->
+                                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='http://fhir.de/sid/kzbv/zahnarztnummer']/fhir:value/@value"/>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
                                         </div>
                                     </xsl:when>
                                     <xsl:when test="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='https://gematik.de/fhir/sid/telematik-id']">
                                         <label>Telematik-ID</label> <!-- (ID 42c/52c) -->
                                         <div class="text-input">
-                                            <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='https://gematik.de/fhir/sid/telematik-id']/fhir:value/@value"/>
+                                            <xsl:choose>
+                                                <xsl:when test="$anonymize='true'">
+                                                    <xsl:value-of select="'+-++.+.++++++++++.+++'"/>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <!-- normale Ausgabe -->
+                                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='https://gematik.de/fhir/sid/telematik-id']/fhir:value/@value"/>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
                                         </div>
                                     </xsl:when>
                                     <xsl:otherwise>
@@ -1330,10 +1435,18 @@
                                             -->
                                             <label>ASV-FachgruppenNr/-TeamNr</label>
                                             <div class="text-input">
-                                                <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:qualification/fhir:code/fhir:coding[fhir:system/@value='https://fhir.kbv.de/NamingSystem/KBV_NS_FOR_Fachgruppennummer_ASV']/fhir:code/@value"/>
-                                                <xsl:text disable-output-escaping='yes'> / </xsl:text>
-                                                <!-- TODO: was wenn nicht angegeben -> v<1.2 -->
-                                                <xsl:value-of select="//fhir:PractitionerRole/fhir:organization/fhir:identifier[fhir:system/@value='http://fhir.de/NamingSystem/asv/teamnummer']/fhir:value/@value"/>
+                                                <xsl:choose>
+                                                    <xsl:when test="$anonymize='true'">
+                                                        <xsl:value-of select="'+++++++++ / +++++++++'"/>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <!-- normale Ausgabe -->
+                                                        <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:qualification/fhir:code/fhir:coding[fhir:system/@value='https://fhir.kbv.de/NamingSystem/KBV_NS_FOR_Fachgruppennummer_ASV']/fhir:code/@value"/>
+                                                        <xsl:text disable-output-escaping='yes'> / </xsl:text>
+                                                        <!-- TODO: was wenn nicht angegeben -> v<1.2 -->
+                                                        <xsl:value-of select="//fhir:PractitionerRole/fhir:organization/fhir:identifier[fhir:system/@value='http://fhir.de/NamingSystem/asv/teamnummer']/fhir:value/@value"/>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
                                             </div>
                                         </xsl:if>
                                         <xsl:if test="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:qualification/fhir:code/fhir:coding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_FOR_Qualification_Type']/fhir:code/@value=1">
@@ -1352,31 +1465,71 @@
                                     <xsl:when test="//fhir:entry/fhir:resource/fhir:Organization/fhir:identifier[fhir:system/@value='https://fhir.kbv.de/NamingSystem/KBV_NS_Base_BSNR']/fhir:value/@value">
                                         <label>Betriebsstättennummer</label> <!-- ID 61a -->
                                         <div class="text-input">
-                                            <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:identifier[fhir:system/@value='https://fhir.kbv.de/NamingSystem/KBV_NS_Base_BSNR']/fhir:value/@value"/>
+                                            <xsl:choose>
+                                                <xsl:when test="$anonymize='true'">
+                                                    <xsl:value-of select="'+++++++++'"/>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <!-- normale Ausgabe -->
+                                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:identifier[fhir:system/@value='https://fhir.kbv.de/NamingSystem/KBV_NS_Base_BSNR']/fhir:value/@value"/>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
                                         </div>
                                     </xsl:when>
                                     <xsl:when test="//fhir:entry/fhir:resource/fhir:Organization/fhir:identifier[fhir:system/@value='http://fhir.de/sid/kzbv/kzvabrechnungsnummer']/fhir:value/@value">
                                         <label>KZV-Abrechnungsnummer</label><!-- (ID 61c) -->
                                         <div class="text-input">
-                                            <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:identifier[fhir:system/@value='http://fhir.de/sid/kzbv/kzvabrechnungsnummer']/fhir:value/@value"/>
+                                            <xsl:choose>
+                                                <xsl:when test="$anonymize='true'">
+                                                    <xsl:value-of select="'+++++++++'"/>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <!-- normale Ausgabe -->
+                                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:identifier[fhir:system/@value='http://fhir.de/sid/kzbv/kzvabrechnungsnummer']/fhir:value/@value"/>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
                                         </div>
                                     </xsl:when>
                                     <xsl:when test="//fhir:entry/fhir:resource/fhir:Organization/fhir:identifier[fhir:system/@value='http://fhir.de/sid/dkgev/standortnummer']/fhir:value/@value">
                                         <label>Standortnummer</label> <!-- (ID 61d) -->
                                         <div class="text-input">
-                                            <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:identifier[fhir:system/@value='http://fhir.de/sid/dkgev/standortnummer']/fhir:value/@value"/>
+                                            <xsl:choose>
+                                                <xsl:when test="$anonymize='true'">
+                                                    <xsl:value-of select="'+++++++++'"/>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <!-- normale Ausgabe -->
+                                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:identifier[fhir:system/@value='http://fhir.de/sid/dkgev/standortnummer']/fhir:value/@value"/>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
                                         </div>
                                     </xsl:when>
                                     <xsl:when test="//fhir:entry/fhir:resource/fhir:Organization/fhir:identifier[fhir:system/@value='http://fhir.de/sid/arge-ik/iknr']/fhir:value/@value">
                                         <label>Institutionskennzeichen</label> <!-- (ID 61b) -->
                                         <div class="text-input">
-                                            <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:identifier[fhir:system/@value='http://fhir.de/sid/arge-ik/iknr']/fhir:value/@value"/>
+                                            <xsl:choose>
+                                                <xsl:when test="$anonymize='true'">
+                                                    <xsl:value-of select="'+++++++++'"/>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <!-- normale Ausgabe -->
+                                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:identifier[fhir:system/@value='http://fhir.de/sid/arge-ik/iknr']/fhir:value/@value"/>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
                                         </div>
                                     </xsl:when>
                                     <xsl:when test="//fhir:entry/fhir:resource/fhir:Organization/fhir:identifier[fhir:system/@value='https://gematik.de/fhir/sid/telematik-id']/fhir:value/@value">
                                         <label>Telematik-ID</label> <!-- (ID 61e) -->
                                         <div class="text-input">
-                                            <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:identifier[fhir:system/@value='https://gematik.de/fhir/sid/telematik-id']/fhir:value/@value"/>
+                                            <xsl:choose>
+                                                <xsl:when test="$anonymize='true'">
+                                                    <xsl:value-of select="'+-++.+.++++++++++.+++'"/>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <!-- normale Ausgabe -->
+                                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:identifier[fhir:system/@value='https://gematik.de/fhir/sid/telematik-id']/fhir:value/@value"/>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
                                         </div>
                                     </xsl:when>
                                     <xsl:otherwise>
@@ -1393,9 +1546,19 @@
                         <div class="col-12">
                             <div class="input-container">
                                 <label>Einrichtung</label> <!-- Name der Einrichtung (ID 62) -->
-                                <textarea id="resize_ta5" class="text-input" rows="auto" readonly="">
-                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:name/@value"/>
-                                </textarea>
+                                <xsl:choose>
+                                    <xsl:when test="$anonymize='true'">
+                                        <div class="text-input">
+                                            <xsl:value-of select="'++++++++++++'"/>
+                                        </div>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <!-- normale Ausgabe -->
+                                        <textarea id="resize_ta5" class="text-input" rows="auto" readonly="">
+                                            <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:name/@value"/>
+                                        </textarea>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </div>
                         </div>
                     </div>
@@ -1403,24 +1566,33 @@
                         <div class="col-10">
                             <div class="input-container">
                                 <label>Straßenadresse</label> <!-- Strassenadresse der Einrichtung (ID 143) -->
-                                <textarea id="resize_ta6" class="text-input" rows="auto" readonly="">
-                                    <!--xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:line/@value"/-->
-                                    <xsl:for-each select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:line">
-                                        <xsl:if test="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-streetName']">
-                                            <xsl:value-of select="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-streetName']/fhir:valueString/@value"/>
-                                        </xsl:if>
-                                        <xsl:if test="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-houseNumber']">
-                                            <xsl:text disable-output-escaping='yes'> </xsl:text>
-                                            <xsl:value-of select="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-houseNumber']/fhir:valueString/@value"/>
-                                        </xsl:if>
-                                        <xsl:if test="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-additionalLocator']">
-                                            <xsl:text disable-output-escaping='yes'>&#13;&#10;</xsl:text>
-                                            <xsl:value-of select="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-additionalLocator']/fhir:valueString/@value"/>
-                                            <xsl:text disable-output-escaping='yes'>&#13;&#10;</xsl:text>
-                                        </xsl:if>
-                                    </xsl:for-each>
-
-                                </textarea>
+                                <xsl:choose>
+                                    <xsl:when test="$anonymize='true'">
+                                        <div class="text-input">
+                                            <xsl:value-of select="'++++++++ ++++++ ++'"/>
+                                        </div>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <!-- normale Ausgabe -->
+                                        <textarea id="resize_ta6" class="text-input" rows="auto" readonly="">
+                                            <!--xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:line/@value"/-->
+                                            <xsl:for-each select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:line">
+                                                <xsl:if test="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-streetName']">
+                                                    <xsl:value-of select="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-streetName']/fhir:valueString/@value"/>
+                                                </xsl:if>
+                                                <xsl:if test="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-houseNumber']">
+                                                    <xsl:text disable-output-escaping='yes'> </xsl:text>
+                                                    <xsl:value-of select="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-houseNumber']/fhir:valueString/@value"/>
+                                                </xsl:if>
+                                                <xsl:if test="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-additionalLocator']">
+                                                    <xsl:text disable-output-escaping='yes'>&#13;&#10;</xsl:text>
+                                                    <xsl:value-of select="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-additionalLocator']/fhir:valueString/@value"/>
+                                                    <xsl:text disable-output-escaping='yes'>&#13;&#10;</xsl:text>
+                                                </xsl:if>
+                                            </xsl:for-each>
+                                        </textarea>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </div>
                         </div>
                         <xsl:if test="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:country">
@@ -1428,7 +1600,15 @@
                                 <div class="input-container">
                                     <label>Land</label> <!-- Wohnsitzländercode (ID 63) -->
                                     <div class="text-input">
-                                        <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:country/@value"/>
+                                        <xsl:choose>
+                                            <xsl:when test="$anonymize='true'">
+                                                    <xsl:value-of select="'+'"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <!-- normale Ausgabe -->
+                                                <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:country/@value"/>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                     </div>
                                 </div>
                             </div>
@@ -1439,15 +1619,15 @@
                             <div class="input-container">
                                 <label>PLZ</label> <!-- Postleitzahl (ID 64) -->
                                 <div class="text-input">
-                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:postalCode/@value"/>
-                                    <!--xsl:choose>
-                                        <xsl:when test="//fhir:entry/fhir:resource/fhir:Organization/fhir:identifier[fhir:system/@value='https://gematik.de/fhir/sid/telematik-id']/fhir:value/@value">
-                                            <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:postalCode/@value"/>
+                                    <xsl:choose>
+                                        <xsl:when test="$anonymize='true'">
+                                            <xsl:value-of select="'+++++'"/>
                                         </xsl:when>
                                         <xsl:otherwise>
-                                            <xsl:text> </xsl:text>
+                                            <!-- normale Ausgabe -->
+                                            <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:postalCode/@value"/>
                                         </xsl:otherwise>
-                                    </xsl:choose-->
+                                    </xsl:choose>
                                 </div>
                             </div>
                         </div>
@@ -1455,7 +1635,15 @@
                             <div class="input-container"> <!-- Ort (ID 65) -->
                                 <label>Ort</label>
                                 <div class="text-input">
-                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:city/@value"/>
+                                    <xsl:choose>
+                                        <xsl:when test="$anonymize='true'">
+                                            <xsl:value-of select="'+++++++'"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <!-- normale Ausgabe -->
+                                            <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:city/@value"/>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
                                 </div>
                             </div>
                         </div>
@@ -1465,7 +1653,15 @@
                             <div class="input-container">
                                 <label>Telefon</label> <!-- Telefonnummer (ID 69) -->
                                 <div class="text-input">
-                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:telecom[fhir:system/@value='phone']/fhir:value/@value"/>
+                                    <xsl:choose>
+                                        <xsl:when test="$anonymize='true'">
+                                            <xsl:value-of select="'++++ +++++++'"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <!-- normale Ausgabe -->
+                                            <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:telecom[fhir:system/@value='phone']/fhir:value/@value"/>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
                                 </div>
                             </div>
                         </div>
@@ -1474,8 +1670,15 @@
                                 <div class="input-container">
                                     <label>Fax</label> <!-- Fax (ID 70) -->
                                     <div class="text-input">
-                                        <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:telecom[fhir:system/@value='fax']/fhir:value/@value"/>
-                                        <xsl:text disable-output-escaping='yes'> </xsl:text>
+                                        <xsl:choose>
+                                            <xsl:when test="$anonymize='true'">
+                                                <xsl:value-of select="'++++ +++++++'"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <!-- normale Ausgabe -->
+                                                <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:telecom[fhir:system/@value='fax']/fhir:value/@value"/>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                     </div>
                                 </div>
                             </div>
@@ -1486,8 +1689,15 @@
                             <div class="input-container">
                                 <label>E-Mail</label> <!-- E-Mail (ID 71) -->
                                 <div class="text-input">
-                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:telecom[fhir:system/@value='email']/fhir:value/@value"/>
-                                    <xsl:text disable-output-escaping='yes'> </xsl:text>
+                                    <xsl:choose>
+                                        <xsl:when test="$anonymize='true'">
+                                            <xsl:value-of select="'++++ +++++++'"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <!-- normale Ausgabe -->
+                                            <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:telecom[fhir:system/@value='email']/fhir:value/@value"/>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
                                 </div>
                             </div>
                         </div>
@@ -1506,13 +1716,23 @@
                                 <div class="col-12">
                                     <div class="input-container">
                                         <label>Name u. Vorname</label> <!-- Titel (ID 22/55), Name (ID 141/142), Vorname (ID 44/53) -->
-                                        <textarea id="resize_ta7" class="text-input" rows="auto" readonly="">
-                                            <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$attester_id]/fhir:name/fhir:prefix/@value"/>
-                                            <xsl:text disable-output-escaping='yes'> </xsl:text>
-                                            <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$attester_id]/fhir:name/fhir:given/@value"/>
-                                            <xsl:text disable-output-escaping='yes'> </xsl:text>
-                                            <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$attester_id]/fhir:name/fhir:family/@value"/>
-                                        </textarea>
+                                        <xsl:choose>
+                                            <xsl:when test="$anonymize='true'">
+                                                <div class="text-input">
+                                                    <xsl:value-of select="'++++ +++++++'"/>
+                                                </div>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <!-- normale Ausgabe -->
+                                                <textarea id="resize_ta7" class="text-input" rows="auto" readonly="">
+                                                    <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$attester_id]/fhir:name/fhir:prefix/@value"/>
+                                                    <xsl:text disable-output-escaping='yes'> </xsl:text>
+                                                    <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$attester_id]/fhir:name/fhir:given/@value"/>
+                                                    <xsl:text disable-output-escaping='yes'> </xsl:text>
+                                                    <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$attester_id]/fhir:name/fhir:family/@value"/>
+                                                </textarea>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                     </div>
                                 </div>
                             </div>
@@ -1533,19 +1753,43 @@
                                             <xsl:when test="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$attester_id]/fhir:identifier[fhir:system/@value='https://fhir.kbv.de/NamingSystem/KBV_NS_Base_ANR']/fhir:value/@value">
                                                 <label>LANR</label>
                                                 <div class="text-input">
-                                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$attester_id]/fhir:identifier[fhir:system/@value='https://fhir.kbv.de/NamingSystem/KBV_NS_Base_ANR']/fhir:value/@value"/>
+                                                    <xsl:choose>
+                                                        <xsl:when test="$anonymize='true'">
+                                                            <xsl:value-of select="'+++++++++'"/>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <!-- normale Ausgabe -->
+                                                            <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$attester_id]/fhir:identifier[fhir:system/@value='https://fhir.kbv.de/NamingSystem/KBV_NS_Base_ANR']/fhir:value/@value"/>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
                                                 </div>
                                             </xsl:when>
                                             <xsl:when test="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$attester_id]/fhir:identifier[fhir:system/@value='http://fhir.de/sid/kzbv/zahnarztnummer']/fhir:value/@value">
                                                 <label>ZANR</label>
                                                 <div class="text-input">
-                                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$attester_id]/fhir:identifier[fhir:system/@value='http://fhir.de/sid/kzbv/zahnarztnummer']/fhir:value/@value"/>
+                                                    <xsl:choose>
+                                                        <xsl:when test="$anonymize='true'">
+                                                            <xsl:value-of select="'+++++++++'"/>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <!-- normale Ausgabe -->
+                                                            <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$attester_id]/fhir:identifier[fhir:system/@value='http://fhir.de/sid/kzbv/zahnarztnummer']/fhir:value/@value"/>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
                                                 </div>
                                             </xsl:when>
                                             <xsl:when test="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$attester_id]/fhir:identifier[fhir:system/@value='https://gematik.de/fhir/sid/telematik-id']/fhir:value/@value">
                                                 <label>Telematik-ID</label> <!-- (ID 42c/52c) -->
                                                 <div class="text-input">
-                                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$attester_id]/fhir:identifier[fhir:system/@value='https://gematik.de/fhir/sid/telematik-id']/fhir:value/@value"/>
+                                                    <xsl:choose>
+                                                        <xsl:when test="$anonymize='true'">
+                                                            <xsl:value-of select="'+-++.+.++++++++++.+++'"/>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <!-- normale Ausgabe -->
+                                                            <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$attester_id]/fhir:identifier[fhir:system/@value='https://gematik.de/fhir/sid/telematik-id']/fhir:value/@value"/>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
                                                 </div>
                                             </xsl:when>
                                         </xsl:choose>
@@ -1563,7 +1807,8 @@
                                                 <xsl:when test="$arzttyp=03">Arzt in Weiterbildung (</xsl:when>
                                                 <xsl:when test="$arzttyp=04">Arzt als Vertreter (</xsl:when>
                                             </xsl:choose>
-                                            <xsl:value-of select="($arzttyp)" />
+                                            <xsl:value-of select="($arzttyp)"/>
+                                            <xsl:text disable-output-escaping='yes'>)</xsl:text>
                                         </div>
                                     </div>
                                 </div>
@@ -1583,9 +1828,17 @@
                                         <div class="input-container"> <!-- ID 74 -->
                                             <label>Unfalltag</label>
                                             <div class="text-input">
-                                                <xsl:call-template name="formatDate">
-                                                    <xsl:with-param name="date" select="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_Accident']/fhir:extension[@url='Unfalltag']/fhir:valueDate/@value"/>
-                                                </xsl:call-template>
+                                                <xsl:choose>
+                                                    <xsl:when test="$anonymize='true'">
+                                                        <xsl:value-of select="'++.++.++++'"/>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <!-- normale Ausgabe -->
+                                                        <xsl:call-template name="formatDate">
+                                                            <xsl:with-param name="date" select="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_Accident']/fhir:extension[@url='Unfalltag']/fhir:valueDate/@value"/>
+                                                        </xsl:call-template>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
                                             </div>
                                         </div>
                                     </div>
@@ -1597,7 +1850,15 @@
                                         <div class="input-container"> <!-- ID 75 -->
                                             <label>Name des Unfallbetriebs</label>
                                             <div class="text-input">
-                                                <xsl:value-of select="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_Accident']/fhir:extension[@url='Unfallbetrieb']/fhir:valueString/@value"/>
+                                                <xsl:choose>
+                                                    <xsl:when test="$anonymize='true'">
+                                                        <xsl:value-of select="'+++++++++++++'"/>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <!-- normale Ausgabe -->
+                                                        <xsl:value-of select="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_Accident']/fhir:extension[@url='Unfallbetrieb']/fhir:valueString/@value"/>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
                                             </div>
                                         </div>
                                     </div>
@@ -1626,7 +1887,15 @@
                                     <div class="input-container"> <!-- Verschreiber-ID (ID 155) -->
                                         <label>Verschreiber-ID</label>
                                         <div class="text-input">
-                                            <xsl:value-of select="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Prescriber_ID']/fhir:valueIdentifier/fhir:value/@value"/>
+                                            <xsl:choose>
+                                                <xsl:when test="$anonymize='true'">
+                                                    <xsl:value-of select="'+++++++++++++'"/>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <!-- normale Ausgabe -->
+                                                    <xsl:value-of select="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Prescriber_ID']/fhir:valueIdentifier/fhir:value/@value"/>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
                                         </div>
                                     </div>
                                 </div>
@@ -1640,7 +1909,15 @@
                                     <div class="input-container"> <!-- Patienten-ID (ID 189) -->
                                         <label>Patienten-ID</label>
                                         <div class="text-input">
-                                            <xsl:value-of select="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Patient_ID']/fhir:valueIdentifier/fhir:value/@value"/>
+                                            <xsl:choose>
+                                                <xsl:when test="$anonymize='true'">
+                                                    <xsl:value-of select="'+++++++++++++'"/>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <!-- normale Ausgabe -->
+                                                    <xsl:value-of select="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Patient_ID']/fhir:valueIdentifier/fhir:value/@value"/>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
                                         </div>
                                     </div>
                                 </div>
@@ -1657,9 +1934,17 @@
                                         <div class="input-container"> <!-- Zähler (ID 88) + Nenner (ID 89) -->
                                             <label>Zähler / Nenner</label>
                                             <div class="text-input">
-                                                <xsl:value-of select="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Multiple_Prescription']/fhir:extension[@url='Nummerierung']/fhir:valueRatio/fhir:numerator/fhir:value/@value"/>
-                                                <xsl:text disable-output-escaping='yes'> / </xsl:text>
-                                                <xsl:value-of select="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Multiple_Prescription']/fhir:extension[@url='Nummerierung']/fhir:valueRatio/fhir:denominator/fhir:value/@value"/>
+                                                <xsl:choose>
+                                                    <xsl:when test="$anonymize='true'">
+                                                        <xsl:value-of select="'+/+'"/>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <!-- normale Ausgabe -->
+                                                        <xsl:value-of select="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Multiple_Prescription']/fhir:extension[@url='Nummerierung']/fhir:valueRatio/fhir:numerator/fhir:value/@value"/>
+                                                        <xsl:text disable-output-escaping='yes'> / </xsl:text>
+                                                        <xsl:value-of select="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Multiple_Prescription']/fhir:extension[@url='Nummerierung']/fhir:valueRatio/fhir:denominator/fhir:value/@value"/>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
                                             </div>
                                         </div>
                                     </div>
@@ -1668,7 +1953,7 @@
                                     <div class="col-2">
                                         <xsl:if test="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Multiple_Prescription']/fhir:extension[@url='Zeitraum']/fhir:valuePeriod/fhir:start">
                                             <div class="input-container"> <!-- Begin Einloesefrist (ID 90)  -->
-                                                <label>Begin Einloesefrist</label>
+                                                <label>Begin Einlösefrist</label>
                                                 <div class="text-input">
                                                     <xsl:call-template name="formatDate">
                                                         <xsl:with-param name="date" select="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Multiple_Prescription']/fhir:extension[@url='Zeitraum']/fhir:valuePeriod/fhir:start/@value"/>
@@ -1679,7 +1964,7 @@
                                     </div>
                                     <div class="col-2">
                                         <div class="input-container"> <!-- Ende Einloesefrist (ID 91) -->
-                                            <label>Ende Einloesefrist</label>
+                                            <label>Ende Einlösefrist</label>
                                             <div class="text-input">
                                                 <xsl:if test="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Multiple_Prescription']/fhir:extension[@url='Zeitraum']/fhir:valuePeriod/fhir:end">
                                                     <xsl:call-template name="formatDate">
@@ -1696,7 +1981,15 @@
                                         <div class="input-container"> <!-- MV-ID 145 -->
                                             <label>ID</label>
                                             <div class="text-input">
-                                                <xsl:value-of select="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Multiple_Prescription']/fhir:extension[@url='ID']/fhir:valueIdentifier/fhir:value/@value"/>
+                                                <xsl:choose>
+                                                    <xsl:when test="$anonymize='true'">
+                                                        <xsl:value-of select="'+++++++++++++'"/>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <!-- normale Ausgabe -->
+                                                        <xsl:value-of select="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Multiple_Prescription']/fhir:extension[@url='ID']/fhir:valueIdentifier/fhir:value/@value"/>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
                                             </div>
                                         </div>
                                     </div>
@@ -2271,7 +2564,7 @@
                                     <xsl:if test="fhir:entry/fhir:resource/fhir:Medication/fhir:extension[@url='http://fhir.de/StructureDefinition/normgroesse']/fhir:valueCode['https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_KBV_NORMGROESSE']">
                                         <div class="col-4">
                                             <div class="input-container">
-                                                <label>Packungsgroesse nach N-Bezeichnung</label> <!-- Anzahl der verordneten Packungen (ID 113) -->
+                                                <label>Packungsgrösse nach N-Bezeichnung</label> <!-- Anzahl der verordneten Packungen (ID 113) -->
                                                 <div class="text-input">
                                                     <xsl:variable name="npack" select="fhir:entry/fhir:resource/fhir:Medication/fhir:extension[@url='http://fhir.de/StructureDefinition/normgroesse']/fhir:valueCode['https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_KBV_NORMGROESSE']/@value"/>
                                                     <xsl:choose>
@@ -2292,7 +2585,7 @@
                                     <xsl:if test="fhir:entry/fhir:resource/fhir:Medication/fhir:amount">
                                         <div class="col-4">
                                             <div class="input-container">
-                                                <label>Packungsgroesse nach abgeteilter Menge</label>
+                                                <label>Packungsgrösse nach abgeteilter Menge</label>
                                                 <div class="text-input">
                                                     <xsl:value-of select="fhir:entry/fhir:resource/fhir:Medication/fhir:amount/fhir:numerator/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_PackagingSize']/fhir:valueString/@value"/>
                                                     <xsl:text disable-output-escaping='yes'> </xsl:text>
@@ -2636,7 +2929,7 @@
                 <b> <xsl:call-template name="getVersion">
                     <xsl:with-param name="url" select="//fhir:meta/fhir:profile/@value"/>
                 </xsl:call-template></b> PRF.NR.:<b> <xsl:value-of select="//fhir:Composition/fhir:author[fhir:type/@value='Device']/fhir:identifier/fhir:value/@value"/></b>
-                Stylesheet: <b>v1.10</b>
+                Stylesheet: <b>v1.11</b>
             </p>
         </div>
 

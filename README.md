@@ -30,12 +30,29 @@ Wir begrüßen und empfehlen die zusätzliche Möglichkeit der Darstellung bzw. 
     unterstützte Instanzversionen: 1.1, 1.2, 1.3, 1.4
 
 
-<span style="color:red"> Die Stylesheets für die technisch korrekte Darstellung der Instanzinhalte wurden mit viel Sorgfalt erstellt.
-Wir sind jederzeit dankbar für Hinweise auf Fehler oder für Verbesserungsvorschläge.</span>
+<span style="color:red">**Die Stylesheets für die technisch korrekte Darstellung der Instanzinhalte wurden mit viel Sorgfalt erstellt.
+Wir sind jederzeit dankbar für Hinweise auf Fehler oder für Verbesserungsvorschläge.**</span>
 
-<span style="color:yellow">Das für die Verordnungsprüfung (P4-02) bereitgestellte Stylesheet der KBV ist unter
-https://update.kbv.de/ita-update/DigitaleMuster/ERP/ aktuell -> eRP_Stylesheet_V1.3.zip abrufbar.</span>
 
+<span style="color:yellow">**Das für die Verordnungsprüfung (P4-02) bereitgestellte Stylesheet der KBV ist unter
+https://update.kbv.de/ita-update/DigitaleMuster/ERP/ aktuell -> eRP_Stylesheet_V1.3.zip abrufbar.**</span>
+
+
+<span style="color:green">**Die Stylesheets unterstützen eine Anonymisierungsfunktion, die durch den XSLT-Parameter "anonymize"="true" gesteuert wird.**</span>
+
+    Aktivierung der Anonymisierung: 
+        Parameter beim Stylesheet-Aufruf: anonymize="true"
+    
+    Anonymisierte Daten: 
+        Bei aktivierter Anonymisierung werden folgende Daten anonymisiert dargestellt:
+        - Patientendaten (Name, Geburtsdatum, Adresse)
+        - Verschreiberdaten (Name, Identifikatoren)
+        - Organisationsdaten (Name, Adresse, Telefon, Fax)
+        - Identifikatoren (Telematik-ID, Versichertennummer, LANR, etc.)
+    
+    Hinweis: 
+        Dies ist für Demonstrationszwecke und Testumgebungen gedacht.
+        Für produktive Umgebungen sollte die Anonymisierung im Backend implementiert werden.
 
 
 
