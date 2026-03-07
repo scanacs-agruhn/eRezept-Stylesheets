@@ -1684,24 +1684,26 @@
                             </div>
                         </xsl:if>
                     </div>
-                    <div class="row g-1">
-                        <div class="col-12">
-                            <div class="input-container">
-                                <label>E-Mail</label> <!-- E-Mail (ID 71) -->
-                                <div class="text-input">
-                                    <xsl:choose>
-                                        <xsl:when test="$anonymize='true'">
-                                            <xsl:value-of select="'++++ +++++++'"/>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <!-- normale Ausgabe -->
-                                            <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:telecom[fhir:system/@value='email']/fhir:value/@value"/>
-                                        </xsl:otherwise>
-                                    </xsl:choose>
+                    <xsl:if test="fhir:entry/fhir:resource/fhir:Organization/fhir:telecom[fhir:system/@value='email']">
+                        <div class="row g-1">
+                            <div class="col-12">
+                                <div class="input-container">
+                                    <label>E-Mail</label> <!-- E-Mail (ID 71) -->
+                                    <div class="text-input">
+                                        <xsl:choose>
+                                            <xsl:when test="$anonymize='true'">
+                                                <xsl:value-of select="'++++ +++++++'"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <!-- normale Ausgabe -->
+                                                <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:telecom[fhir:system/@value='email']/fhir:value/@value"/>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </xsl:if>
                     <xsl:variable name="anzahl" select="count(fhir:entry/fhir:resource/fhir:Practitioner)"/>
                     <xsl:choose>
                         <xsl:when test="fhir:entry/fhir:resource/fhir:Composition/fhir:attester and $anzahl>'1'">
@@ -2929,7 +2931,7 @@
                 <b> <xsl:call-template name="getVersion">
                     <xsl:with-param name="url" select="//fhir:meta/fhir:profile/@value"/>
                 </xsl:call-template></b> PRF.NR.:<b> <xsl:value-of select="//fhir:Composition/fhir:author[fhir:type/@value='Device']/fhir:identifier/fhir:value/@value"/></b>
-                Stylesheet: <b>v1.11</b>
+                Stylesheet: <b>v1.12</b>
             </p>
         </div>
 
@@ -2998,28 +3000,28 @@
         </xsl:if>
         <script>
             <xsl:text disable-output-escaping='yes'>
-                    <![CDATA[
-            function calcHeight(value) {
-                let numberOfLineBreaks = (value.match(/\n/g) || []).length;
-                numberOfLineBreaks = Math.max(numberOfLineBreaks, 1)
+            <![CDATA[
+                function calcHeight(value) {
+                    let numberOfLineBreaks = (value.match(/\n/g) || []).length;
+                    numberOfLineBreaks = Math.max(numberOfLineBreaks, 1)
 
-                newHeight = 20 + (Math.max(numberOfLineBreaks, Math.round((value.length/35))) * 25);
-                return newHeight;
-            }
+                    newHeight = 20 + (Math.max(numberOfLineBreaks, Math.round((value.length/35))) * 25);
+                    return newHeight;
+                }
 
-            function formatHeightOfTextarea() {
-                const fields = ['resize_ta1','resize_ta2','resize_ta3','resize_ta4','resize_ta5','resize_ta6','resize_ta7','resize_ta8','resize_ta9','resize_ta10','resize_ta11','resize_ta12','resize_ta13','resize_ta14','resize_ta15','resize_ta16','resize_ta17','resize_ta18','resize_ta19','resize_ta20','resize_ta21','resize_ta22','resize_ta23', 'resize_ta24', 'resize_ta25'];
-                fields.forEach(id => {
-                    const el = document.getElementById(id);
-                    if (el) {
-                        el.style.height = calcHeight(el.value) + "px";
-                    }
-                });
-            }
-            document.addEventListener('DOMContentLoaded', formatHeightOfTextarea);
+                function formatHeightOfTextarea() {
+                    const fields = ['resize_ta1','resize_ta2','resize_ta3','resize_ta4','resize_ta5','resize_ta6','resize_ta7','resize_ta8','resize_ta9','resize_ta10','resize_ta11','resize_ta12','resize_ta13','resize_ta14','resize_ta15','resize_ta16','resize_ta17','resize_ta18','resize_ta19','resize_ta20','resize_ta21','resize_ta22','resize_ta23', 'resize_ta24', 'resize_ta25'];
+                    fields.forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) {
+                            el.style.height = calcHeight(el.value) + "px";
+                        }
+                    });
+                }
+                document.addEventListener('DOMContentLoaded', formatHeightOfTextarea);
             ]]>
             </xsl:text>
-                </script>
+        </script>
     </xsl:template>
 
     <xsl:template match="//fhir:entry/fhir:resource/fhir:MedicationRequest"> <!-- T-Rezept & BtM-->
