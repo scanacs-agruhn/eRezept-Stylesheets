@@ -54,6 +54,48 @@ https://update.kbv.de/ita-update/DigitaleMuster/ERP/ aktuell -> eRP_Stylesheet_V
         Dies ist für Demonstrationszwecke und Testumgebungen gedacht.
         Für produktive Umgebungen sollte die Anonymisierung im Backend implementiert werden.
 
+**Beispiele:**
 
+    Beispielaufruf mit Anonymisierung:
+        xsltproc --stringparam anonymize true ERP_Stylesheet_DAV_Verordnung.xslt Verordnungsdatensatz.xml > Verordnungsdatensatz_anonymisiert.html
 
+    Beispielaufruf ohne Anonymisierung:
+        xsltproc ERP_Stylesheet_DAV_Verordnung.xslt Verordnungsdatensatz.xml > Verordnungsdatensatz.html
+
+Beispiele für Verordnungen:<br>
+[Freitext-Verordnung](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/Verordnung_Freitext_FT_V1.html)<br>
+[Wirkstoff-Verordnung](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/Verordnung_Wirkstoff_WS_2W.html)<br>
+[PZN-Verordnung](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/Verordnung_PZN_Nr1.html)<br>
+[Rezeptur-Verordnung](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/Verordnung_Rezeptur_Rez_Nr1.html)<br>
+[Arbeitsunfall](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/Verordnung_Arbeitsunfall_PZN.html)<br>
+[ASV](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/Verordnung_ASV_Bsp5.html)<br>
+[künstliche Befruchtung](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/Verordnung_kuenstlicheBefruchtung_PZN_KB_V1.html)<br>
+[Mehrfach-Verordnung](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/Verordnung_Mehrfach_PZN_MV1.html)<br>
+[verantwortlicher Arzt](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/Verordnung_verantwortlicherArzt_PZN_Nr7.html)<br>
+[ZahnArzt](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/Verordnung_ZahnArzt_PZN_Nr1.html)<br>
+[Kostenträger-SKT](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/Verordnung_SKT_PZN_Nr1.html)<br>
+[Kostenträger-PKV](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/Verordnung_PKV_PZN_Nr1.html)<br>
+[BtM Notfall](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/Verordnung_64_PZN_BtM_Notfall.html)<br>
+[T-Rezept Freitext](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/Verordnung_72_Freitext_TRp.xml.html)<br>
+
+Beispiele für Quittung:<br>
+[Bsp](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/Quittung_PZN_Nr1.html)
+
+Beispiele für Abgabedaten:<br>
+[PZN](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/Abgabedaten_PZN_Nr1.html)<br>
+[Rezeptur](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/Abgabedaten_Rez_Nr1.html)
+
+Beispiele für Abgabedaten PKV:<br>
+[PZN](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/Abgabedaten_PKV_PZN_Nr1.html)
+
+Beispiele für Abrechnungsdaten (TA7):<br>
+[PZN](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/Abrechnungsdaten_PZN_Nr1.html)<br>
+[Rezeptur](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/Abrechnungsdaten_Rez_Nr1.html)<br>
+[Rezeptur parenterale Zytostatika](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/Abrechnungsdaten_Rez_parenterale_Zytostatika.html)
+
+Beispiele für Anonymisierungen:<br>
+[Verordnung anonymisiert](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/anonym_Verordnung_PZN_Nr1.html)<br>
+[Quittung anonymisiert](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/anonym_Quittung_PZN_Nr1.html)<br>
+[Abgabe anonymisiert](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/anonym_Abgabedaten_PZN_Nr1.html)<br>
+[Abrechnung anonymisiert](https://htmlpreview.github.io/?https://github.com/DAV-ABDA/eRezept-Stylesheets/blob/main/Beispiele/anonym_Abrechnungsdaten_PZN_Nr1.html)<br>
 
