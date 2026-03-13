@@ -231,7 +231,8 @@
                     /* Internes Stylesheet */
                     /* Globale Variablen */
                     :root{
-                        --background-color-ges: #ffffff; /* M16 -> Farbauswertung Rezeptarten */
+                        --background-color-ges: #ffffff;
+                        --background-color-gray: #e3e3e3;
                         --border-background-color-ges: #F7B8CA; /* M16 -> Farbauswertung Rezeptarten */
                         --text-color-ges: #EA6769;
                         --text-color-inputs: #000000;
@@ -333,6 +334,21 @@
                         padding-top: 14px;
                         padding-left: 10px;
                         color: var(--text-color-inputs);
+                    }
+
+                    .text-input-gray {
+                        font-family: Consolas, sans-serif;
+                        height: 10mm;
+                        width: 100%;
+                        text-align: left;
+                        border: 1px solid var(--text-color-ges);
+                        box-shadow: none;
+                        appearance: none;
+                        outline: none;
+                        padding-top: 14px;
+                        padding-left: 10px;
+                        color: var(--text-color-inputs);
+                        background-color: var(--background-color-gray);
                     }
 
                     /* Textarea mit dynamischer Höhenanpassung */
@@ -503,6 +519,7 @@
                     .width-100{ width: 100%; }
                     .padding-1{ padding: 0.5%; }
                     .height-15mm{ height: 15mm; }
+                    .height-20mm{ height: 20mm; }
                     .height-18mm{ height: 18mm; }
                     .height-25mm{ height: 25mm; }
                     .padding-bot-2{ padding-bottom: 2mm; }
@@ -794,7 +811,7 @@
                         </div>
                     </div>
                     <div class="row g-1">
-                        <div class="col-8">
+                        <div class="col-8"> <!-- TODO: Was wenn nicht angegeben? Farbhintergrund-->
                             <div class="input-container">
                                 <label>Name u. Vorname d. Versicherten</label> <!-- ID: Titel 22, Vorname 20, Name 21 -->
                                 <xsl:choose>
@@ -848,91 +865,121 @@
                                 <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
                                     <label>Postfachanschrift</label>
                                 </xsl:if>
-                                <xsl:choose>
-                                    <xsl:when test="$anonymize='true'">
-                                        <div class="text-input">
-                                            <xsl:value-of select="'***'"/>
-                                        </div>
+                                <xsl:choose> <!-- Wenn Attribut nicht angegeben, dann Farbhintergrund -->
+                                    <xsl:when test="(//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:line) or (//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:line)">
+                                        <xsl:choose>
+                                            <xsl:when test="$anonymize='true'">
+                                                <div class="text-input">
+                                                    <xsl:value-of select="'***'"/>
+                                                </div>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <!-- normale Ausgabe -->
+                                                <textarea class="text-input" readonly="">
+                                                    <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']">
+                                                        <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:line/@value"/>
+                                                    </xsl:if>
+                                                    <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
+                                                        <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:line/@value"/>
+                                                    </xsl:if>
+                                                </textarea>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <!-- normale Ausgabe -->
-                                        <textarea class="text-input" readonly="">
-                                            <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']">
-                                                <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:line/@value"/>
-                                            </xsl:if>
-                                            <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
-                                                <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:line/@value"/>
-                                            </xsl:if>
-                                        </textarea>
+                                        <xsl:text disable-output-escaping='yes'>&lt;div class=&quot;text-input-gray&quot;&gt;</xsl:text>
+                                        <xsl:text disable-output-escaping='yes'>&lt;/div&gt;</xsl:text>
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </div>
                         </div>
-                        <xsl:if test="(fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:country) or (fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:country)">
-                            <div class="col-2">
-                                <div class="input-container">
-                                    <label>Land</label> <!-- Wohnsitzlaendercode (ID 28/35) -->
-                                    <div class="text-input">
-                                        <xsl:choose>
-                                            <xsl:when test="$anonymize='true'">
-                                                <xsl:value-of select="'*'"/>
-                                            </xsl:when>
-                                            <xsl:otherwise>
-                                                <!-- normale Ausgabe -->
-                                                <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']">
-                                                    <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:country/@value"/>
-                                                </xsl:if>
-                                                <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
-                                                    <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:country/@value"/>
-                                                </xsl:if>
-                                            </xsl:otherwise>
-                                        </xsl:choose>
-                                    </div>
-                                </div>
+                        <div class="col-2">
+                            <div class="input-container">
+                                <label>Land</label> <!-- Wohnsitzlaendercode (ID 28/35) -->
+                                <xsl:choose> <!-- Wenn Attribut nicht angegeben, dann Farbhintergrund -->
+                                    <xsl:when test="(//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:country) or (//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:country)">
+                                        <div class="text-input">
+                                            <xsl:choose>
+                                                <xsl:when test="$anonymize='true'">
+                                                    <xsl:value-of select="'*'"/>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <!-- normale Ausgabe -->
+                                                    <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']">
+                                                        <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:country/@value"/>
+                                                    </xsl:if>
+                                                    <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
+                                                        <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:country/@value"/>
+                                                    </xsl:if>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                        </div>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text disable-output-escaping='yes'>&lt;div class=&quot;text-input-gray&quot;&gt;</xsl:text>
+                                        <xsl:text disable-output-escaping='yes'>&lt;/div&gt;</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </div>
-                        </xsl:if>
+                        </div>
                     </div>
                     <div class="row g-1">
                         <div class="col-3">
                             <div class="input-container">
                                 <label>PLZ</label> <!-- PLZ (ID 29/36) -->
-                                <div class="text-input">
-                                    <xsl:choose>
-                                        <xsl:when test="$anonymize='true'">
-                                            <xsl:value-of select="'***'"/>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <!-- normale Ausgabe -->
-                                            <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']">
-                                                <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:postalCode/@value"/>
-                                            </xsl:if>
-                                            <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
-                                                <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:postalCode/@value"/>
-                                            </xsl:if>
-                                        </xsl:otherwise>
-                                    </xsl:choose>
-                                </div>
+                                <xsl:choose> <!-- Wenn Attribut nicht angegeben, dann Farbhintergrund -->
+                                    <xsl:when test="(//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:postalCode) or (//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:postalCode)">
+                                        <div class="text-input">
+                                            <xsl:choose>
+                                                <xsl:when test="$anonymize='true'">
+                                                    <xsl:value-of select="'***'"/>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <!-- normale Ausgabe -->
+                                                    <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']">
+                                                        <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:postalCode/@value"/>
+                                                    </xsl:if>
+                                                    <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
+                                                        <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:postalCode/@value"/>
+                                                    </xsl:if>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                        </div>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text disable-output-escaping='yes'>&lt;div class=&quot;text-input-gray&quot;&gt;</xsl:text>
+                                        <xsl:text disable-output-escaping='yes'>&lt;/div&gt;</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </div>
                         </div>
                         <div class="col-9">
                             <div class="input-container">
                                 <label>Ort</label> <!-- Ort (ID 30/37) -->
-                                <xsl:choose>
-                                    <xsl:when test="$anonymize='true'">
-                                        <div class="text-input">
-                                            <xsl:value-of select="'***'"/>
-                                        </div>
+                                <xsl:choose> <!-- Wenn Attribut nicht angegeben, dann Farbhintergrund -->
+                                    <xsl:when test="(//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:city) or (//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:city)">
+                                        <xsl:choose>
+                                            <xsl:when test="$anonymize='true'">
+                                                <div class="text-input">
+                                                    <xsl:value-of select="'***'"/>
+                                                </div>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <!-- normale Ausgabe -->
+                                                <textarea class="text-input" readonly="">
+                                                    <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']">
+                                                        <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:city/@value"/>
+                                                    </xsl:if>
+                                                    <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
+                                                        <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:city/@value"/>
+                                                    </xsl:if>
+                                                </textarea>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <!-- normale Ausgabe -->
-                                        <textarea class="text-input" readonly="">
-                                            <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']">
-                                                <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:city/@value"/>
-                                            </xsl:if>
-                                            <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
-                                                <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:city/@value"/>
-                                            </xsl:if>
-                                        </textarea>
+                                        <xsl:text disable-output-escaping='yes'>&lt;div class=&quot;text-input-gray&quot;&gt;</xsl:text>
+                                        <xsl:text disable-output-escaping='yes'>&lt;/div&gt;</xsl:text>
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </div>
@@ -1401,56 +1448,78 @@
                                 </xsl:choose>
                             </div>
                         </div>
-                        <xsl:if test="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:country">
-                            <div class="col-2">
-                                <div class="input-container">
-                                    <label>Land</label> <!-- Wohnsitzländercode (ID 63) -->
-                                    <div class="text-input">
-                                        <xsl:choose>
-                                            <xsl:when test="$anonymize='true'">
+                        <div class="col-2">
+                            <div class="input-container">
+                                <label>Land</label> <!-- Wohnsitzländercode (ID 63) -->
+                                <xsl:choose> <!-- Wenn Attribut nicht angegeben, dann Farbhintergrund -->
+                                    <xsl:when test="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:country">
+                                        <div class="text-input">
+                                            <xsl:choose>
+                                                <xsl:when test="$anonymize='true'">
                                                     <xsl:value-of select="'*'"/>
-                                            </xsl:when>
-                                            <xsl:otherwise>
-                                                <!-- normale Ausgabe -->
-                                                <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:country/@value"/>
-                                            </xsl:otherwise>
-                                        </xsl:choose>
-                                    </div>
-                                </div>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <!-- normale Ausgabe -->
+                                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:country/@value"/>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                        </div>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text disable-output-escaping='yes'>&lt;div class=&quot;text-input-gray&quot;&gt;</xsl:text>
+                                        <xsl:text disable-output-escaping='yes'>&lt;/div&gt;</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </div>
-                        </xsl:if>
+                        </div>
                     </div>
                     <div class="row g-1">
                         <div class="col-3">
                             <div class="input-container">
                                 <label>PLZ</label> <!-- Postleitzahl (ID 64) -->
-                                <div class="text-input">
-                                    <xsl:choose>
-                                        <xsl:when test="$anonymize='true'">
-                                            <xsl:value-of select="'***'"/>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <!-- normale Ausgabe -->
-                                            <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:postalCode/@value"/>
-                                        </xsl:otherwise>
-                                    </xsl:choose>
-                                </div>
+                                <xsl:choose> <!-- Wenn Attribut nicht angegeben, dann Farbhintergrund -->
+                                    <xsl:when test="(fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:postalCode)">
+                                        <div class="text-input">
+                                            <xsl:choose>
+                                                <xsl:when test="$anonymize='true'">
+                                                    <xsl:value-of select="'***'"/>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <!-- normale Ausgabe -->
+                                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:postalCode/@value"/>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                        </div>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text disable-output-escaping='yes'>&lt;div class=&quot;text-input-gray&quot;&gt;</xsl:text>
+                                        <xsl:text disable-output-escaping='yes'>&lt;/div&gt;</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </div>
                         </div>
                         <div class="col-9">
                             <div class="input-container"> <!-- Ort (ID 65) -->
                                 <label>Ort</label>
-                                <xsl:choose>
-                                    <xsl:when test="$anonymize='true'">
-                                        <div class="text-input">
-                                            <xsl:value-of select="'***'"/>
-                                        </div>
+                                <xsl:choose> <!-- Wenn Attribut nicht angegeben, dann Farbhintergrund -->
+                                    <xsl:when test="(fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:city)">
+                                        <xsl:choose>
+                                            <xsl:when test="$anonymize='true'">
+                                                <div class="text-input">
+                                                    <xsl:value-of select="'***'"/>
+                                                </div>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <!-- normale Ausgabe -->
+                                                <textarea class="text-input" readonly="">
+                                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:city/@value"/>
+                                                </textarea>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <!-- normale Ausgabe -->
-                                        <textarea class="text-input" readonly="">
-                                            <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:city/@value"/>
-                                        </textarea>
+                                        <xsl:text disable-output-escaping='yes'>&lt;div class=&quot;text-input-gray&quot;&gt;</xsl:text>
+                                        <xsl:text disable-output-escaping='yes'>&lt;/div&gt;</xsl:text>
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </div>
@@ -2754,7 +2823,7 @@
                 <b> <xsl:call-template name="getVersion">
                     <xsl:with-param name="url" select="//fhir:meta/fhir:profile/@value"/>
                 </xsl:call-template></b> PRF.NR.:<b> <xsl:value-of select="//fhir:Composition/fhir:author[fhir:type/@value='Device']/fhir:identifier/fhir:value/@value"/></b>
-                Stylesheet: <b>v1.13</b>
+                Stylesheet: <b>v1.14</b>
             </p>
         </div>
 
@@ -2849,7 +2918,7 @@
         </script>
     </xsl:template>
 
-    <xsl:template match="//fhir:entry/fhir:resource/fhir:MedicationRequest"> <!-- T-Rezept & BtM-->
+    <xsl:template match="//fhir:entry/fhir:resource/fhir:MedicationRequest"> <!-- Ausgabe T-Rezept und BtM -->
         <xsl:choose> <!-- T-Rezept -->
             <xsl:when test="//fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Teratogenic']">
                 <div class="row g-1">

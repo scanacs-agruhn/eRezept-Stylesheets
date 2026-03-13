@@ -2,7 +2,12 @@
 Zur Darstellung der Inhalte eines elektronischen Datensatzes (FHIR-Instanz) 
 sollen diese vom DAV bereitgestellten Stylesheets in einer einheitlichen Art und Weise zur vollständigen Visualisierung
 beitragen.<br> 
-Wir begrüßen und empfehlen die zusätzliche Möglichkeit der Darstellung bzw. Unterstützung mit Hilfe dieser Visualisierungen in den Prozessen.
+Wir begrüßen und empfehlen die zusätzliche Möglichkeit der Darstellung bzw. Unterstützung mithilfe dieser Visualisierungen in den Prozessen.
+<br><br>
+Hinweis: Die Stylesheets sind so ausgelegt, dass alle in einer Instanz vorhandenen Angaben angezeigt werden. Optionale Attribute werden nur dargestellt, wenn sie in der Instanz vorhanden sind.
+Daher kann es vorkommen, dass bei einigen Instanzen bestimmte Abschnitte oder Informationen nicht erscheinen, wenn diese in der Instanz nicht enthalten sind.
+Eine Ausnahme bilden Adressdaten: Diese werden immer angezeigt. Sind sie in der Instanz nicht vorhanden, wird das entsprechende Feld leer und grau hinterlegt dargestellt.
+
 
 **Verordnungsdatensatz**    ([https://fhir.kbv.de/StructureDefinition/KBV_PR_ERP_Bundle](https://simplifier.net/erezept/kbv_pr_erp_bundle))
 
