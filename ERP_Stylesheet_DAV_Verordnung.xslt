@@ -1501,25 +1501,17 @@
                         <div class="col-9">
                             <div class="input-container"> <!-- Ort (ID 65) -->
                                 <label>Ort</label>
-                                <xsl:choose> <!-- Wenn Attribut nicht angegeben, dann Farbhintergrund -->
-                                    <xsl:when test="(fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:city)">
-                                        <xsl:choose>
-                                            <xsl:when test="$anonymize='true'">
-                                                <div class="text-input">
-                                                    <xsl:value-of select="'***'"/>
-                                                </div>
-                                            </xsl:when>
-                                            <xsl:otherwise>
-                                                <!-- normale Ausgabe -->
-                                                <textarea class="text-input" readonly="">
-                                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:city/@value"/>
-                                                </textarea>
-                                            </xsl:otherwise>
-                                        </xsl:choose>
+                                <xsl:choose>
+                                    <xsl:when test="$anonymize='true'">
+                                        <div class="text-input">
+                                            <xsl:value-of select="'***'"/>
+                                        </div>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <xsl:text disable-output-escaping='yes'>&lt;div class=&quot;text-input-gray&quot;&gt;</xsl:text>
-                                        <xsl:text disable-output-escaping='yes'>&lt;/div&gt;</xsl:text>
+                                        <!-- normale Ausgabe -->
+                                        <textarea class="text-input" readonly="">
+                                            <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:city/@value"/>
+                                        </textarea>
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </div>
