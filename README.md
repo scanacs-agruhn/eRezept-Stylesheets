@@ -34,7 +34,8 @@ Wir begrüßen ausdrücklich die Nutzung der Stylesheets zur Visualisierung von 
 
 
 ## Hinweise:
-Die Nutzung der Stylesheets setzt technisch gültige FHIR-Instanzen voraus, die die FHIR-Validität erfüllen (z. B. geprüft mit dem [TI-Validator](https://github.com/gematik/app-referencevalidator)).
+Die Nutzung der Stylesheets setzt technisch gültige FHIR-Instanzen voraus, die die FHIR-Validität erfüllen (z. B. geprüft mit dem [TI-Validator](https://github.com/gematik/app-referencevalidator) 
+– einem Tool zur Überprüfung der Konformität des FHIR-Standards in der Telematikinfrastruktur).<br>Ungültige Instanzen können zu Fehlern in der Darstellung führen, wie z. B. unvollständigen Visualisierungen oder Fehlermeldungen beim Rendering.
 
 Die Stylesheets sind so ausgelegt, dass alle in einer Instanz vorhandenen Angaben angezeigt werden. Optionale Attribute werden nur dargestellt, wenn sie in der Instanz vorhanden sind.
 Daher kann es vorkommen, dass bei einigen Instanzen bestimmte Abschnitte oder Informationen nicht erscheinen, wenn diese in der Instanz nicht enthalten sind.
