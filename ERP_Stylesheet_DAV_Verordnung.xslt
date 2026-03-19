@@ -1406,7 +1406,9 @@
                                                 <xsl:if test="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-additionalLocator']">
                                                     <xsl:text disable-output-escaping='yes'>&#13;&#10;</xsl:text>
                                                     <xsl:value-of select="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-additionalLocator']/fhir:valueString/@value"/>
-                                                    <xsl:text disable-output-escaping='yes'>&#13;&#10;</xsl:text>
+                                                    <xsl:if test="position() != last()">
+                                                        <xsl:text disable-output-escaping='yes'>&#13;&#10;</xsl:text>
+                                                    </xsl:if>
                                                 </xsl:if>
                                             </xsl:for-each>
                                         </textarea>
