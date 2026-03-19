@@ -539,7 +539,7 @@
             // Fallback für Browser ohne field-sizing Support
             function adjustHeight() {
                 textarea.style.height = 'auto';
-                textarea.style.height = Math.max(textarea.scrollHeight, 40) + 'px';
+                textarea.style.height = Math.max((textarea.scrollHeight - 18), 40) + 'px';
             }
             // Initial resize
             adjustHeight();
@@ -550,7 +550,7 @@
     window.addEventListener('load', () => {
         document.querySelectorAll('textarea.text-input').forEach(ta => {
             ta.style.height = 'auto';
-            ta.style.height = Math.max(ta.scrollHeight, 40) + 'px';
+            ta.style.height = Math.max((ta.scrollHeight - 18), 40) + 'px';
         });
     });
 
