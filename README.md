@@ -46,7 +46,7 @@ Die Tooltips werden wie folgt vorbelegt und können nachträglich angepasst werd
 - HMNR: => "#HMNR;[ID]" => Hilfsmittelbezeichnung
 
 
-**Die Stylesheets für die technisch korrekte Darstellung der Instanzinhalte wurden mit viel Sorgfalt erstellt.
+**Die Stylesheets wurden für die technisch korrekte Darstellung der Instanzinhalte mit viel Sorgfalt erstellt.
 Wir sind jederzeit dankbar für Hinweise auf Fehler oder für Verbesserungsvorschläge.**
 
 **Das für die Verordnungsprüfung (P4-02) bereitgestellte Stylesheet der KBV ist unter
