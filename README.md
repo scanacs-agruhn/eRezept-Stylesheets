@@ -17,17 +17,17 @@ Wir begrüßen ausdrücklich die Nutzung der Stylesheets zur Visualisierung von 
     ERP_Stylesheet_DAV_Quittung.xslt
     unterstützte Instanzversionen: 1.2, 1.3, 1.4, 1.5, 1.6
 
-**Abgabedatensatz GKV**    [http://fhir.abda.de/eRezeptAbgabedaten/StructureDefinition/DAV-PR-ERP-AbgabedatenBundle](https://simplifier.net/erezeptabgabedaten/dav_pr_erp_abgabedatenbundle))
+**Abgabedatensatz GKV**    [http://fhir.abda.de/eRezeptAbgabedaten/StructureDefinition/DAV-PR-ERP-AbgabedatenBundle](https://simplifier.net/erezeptabgabedaten/dav_pr_erp_abgabedatenbundle)
 
     ERP_Stylesheet_DAV_AbgabeDaten.xlst
     unterstützte Instanzversionen: 1.2, 1.3, 1.4, 1.5
 
-**Abrechnungsdatensatz**    [https://fhir.gkvsv.de/StructureDefinition/GKVSV_PR_ERP_eAbrechnungsdaten](https://simplifier.net/erezeptabrechnungsdaten/gkvsv_pr_erp_eabrechnungsdaten))
+**Abrechnungsdatensatz**    [https://fhir.gkvsv.de/StructureDefinition/GKVSV_PR_ERP_eAbrechnungsdaten](https://simplifier.net/erezeptabrechnungsdaten/gkvsv_pr_erp_eabrechnungsdaten)
 
     ERP_Stylesheet_DAV_TA7Abrechnung.xslt
     unterstützte Instanzversionen: 1.1.0, 1.3, 1.4, 1.5
 
-**Abgabedatensatz PKV**    [http://fhir.abda.de/eRezeptAbgabedaten/StructureDefinition/DAV-PKV-PR-ERP-AbgabedatenBundle](https://simplifier.net/erezeptabgabedatenpkv/dav_pkv_pr_erp_abgabedatenbundle))
+**Abgabedatensatz PKV**    [http://fhir.abda.de/eRezeptAbgabedaten/StructureDefinition/DAV-PKV-PR-ERP-AbgabedatenBundle](https://simplifier.net/erezeptabgabedatenpkv/dav_pkv_pr_erp_abgabedatenbundle)
 
     ERP_Stylesheet_DAV_PKV_AbgabeDaten.xslt
     unterstützte Instanzversionen: 1.1, 1.2, 1.3, 1.4
