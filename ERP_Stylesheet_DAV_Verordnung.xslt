@@ -361,12 +361,14 @@
                         background-color: var(--background-color-int);
                         padding:2mm;
                     }
+
                     .intern-container2{
                         background-color: var(--background-color-ges);
                         padding:1mm;
                         margin-top: 1mm;
                         margin-bottom: 1mm;
                     }
+
                     .row{
                         padding-top: 0px;
                         padding-bottom: 3px;
@@ -974,10 +976,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-2">
+                                <div class="col-2 intern-container2">
                                     <div class="checkbox-container">
                                         <label>eMP</label> <!-- ID 188 -->
-                                        <xsl:text disable-output-escaping='yes'>&lt;input type=&quot;checkbox&quot; class=&quot;chckbox&quot; disabled="disabled" name=&quot;terms&quot;</xsl:text>
+                                        <xsl:text disable-output-escaping='yes'>&lt;input type=&quot;checkbox&quot; class=&quot;chckbox margin-top-5&quot; disabled="disabled" name=&quot;terms&quot;</xsl:text>
                                             <xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text> <!-- Ja -->
                                     </div>
                                 </div>
