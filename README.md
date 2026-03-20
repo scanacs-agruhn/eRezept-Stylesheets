@@ -53,7 +53,7 @@ Die Tooltips werden wie folgt vorbelegt und können nachträglich angepasst werd
 Wir sind jederzeit dankbar für Hinweise auf Fehler oder für Verbesserungsvorschläge.**
 
 **Das für die Verordnungsprüfung (P4-02) bereitgestellte Stylesheet der KBV ist unter
-https://update.kbv.de/ita-update/DigitaleMuster/ERP/ aktuell -> eRP_Stylesheet_V1.3.zip abrufbar.**
+https://update.kbv.de/ita-update/DigitaleMuster/ERP/ [eRP_Stylesheet_[Version].zip] abrufbar.**
 
 
 ### Die Stylesheets unterstützen eine Anonymisierungsfunktion, die durch den XSLT-Parameter "anonymize"="true" gesteuert wird.
